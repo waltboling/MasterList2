@@ -8,20 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AEB2114DCC6004E289B /* AppDelegate.swift */; };
-		E6701AEE2114DCC6004E289B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AED2114DCC6004E289B /* ViewController.swift */; };
+		E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AED2114DCC6004E289B /* MasterViewController.swift */; };
 		E6701AF12114DCC6004E289B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6701AEF2114DCC6004E289B /* Main.storyboard */; };
 		E6701AF32114DCC9004E289B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6701AF22114DCC9004E289B /* Assets.xcassets */; };
 		E6701AF62114DCC9004E289B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6701AF42114DCC9004E289B /* LaunchScreen.storyboard */; };
+		E6701B002114E378004E289B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6701AFF2114E378004E289B /* CloudKit.framework */; };
+		E6701B022114E3FF004E289B /* DataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701B012114E3FF004E289B /* DataStructs.swift */; };
+		E6701B042114E432004E289B /* SublistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701B032114E432004E289B /* SublistViewController.swift */; };
+		E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E6701AE82114DCC6004E289B /* MasterList2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterList2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6701AEB2114DCC6004E289B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E6701AED2114DCC6004E289B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E6701AED2114DCC6004E289B /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		E6701AF02114DCC6004E289B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6701AF22114DCC9004E289B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6701AF52114DCC9004E289B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E6701AF72114DCC9004E289B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6701AFD2114E375004E289B /* MasterList2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MasterList2.entitlements; sourceTree = "<group>"; };
+		E6701AFF2114E378004E289B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		E6701B012114E3FF004E289B /* DataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructs.swift; sourceTree = "<group>"; };
+		E6701B032114E432004E289B /* SublistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublistViewController.swift; sourceTree = "<group>"; };
+		E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6701B002114E378004E289B /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +50,7 @@
 			children = (
 				E6701AEA2114DCC6004E289B /* MasterList2 */,
 				E6701AE92114DCC6004E289B /* Products */,
+				E6701AFE2114E378004E289B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +65,26 @@
 		E6701AEA2114DCC6004E289B /* MasterList2 */ = {
 			isa = PBXGroup;
 			children = (
+				E6701AFD2114E375004E289B /* MasterList2.entitlements */,
 				E6701AEB2114DCC6004E289B /* AppDelegate.swift */,
-				E6701AED2114DCC6004E289B /* ViewController.swift */,
+				E6701AED2114DCC6004E289B /* MasterViewController.swift */,
+				E6701B012114E3FF004E289B /* DataStructs.swift */,
+				E6701B032114E432004E289B /* SublistViewController.swift */,
 				E6701AEF2114DCC6004E289B /* Main.storyboard */,
+				E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */,
 				E6701AF22114DCC9004E289B /* Assets.xcassets */,
 				E6701AF42114DCC9004E289B /* LaunchScreen.storyboard */,
 				E6701AF72114DCC9004E289B /* Info.plist */,
 			);
 			path = MasterList2;
+			sourceTree = "<group>";
+		};
+		E6701AFE2114E378004E289B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6701AFF2114E378004E289B /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +119,14 @@
 				TargetAttributes = {
 					E6701AE72114DCC6004E289B = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -135,8 +166,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6701AEE2114DCC6004E289B /* ViewController.swift in Sources */,
+				E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */,
+				E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */,
+				E6701B022114E3FF004E289B /* DataStructs.swift in Sources */,
 				E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */,
+				E6701B042114E432004E289B /* SublistViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MasterList2/MasterList2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q24H7SU84Q;
 				INFOPLIST_FILE = MasterList2/Info.plist;
@@ -298,6 +333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MasterList2/MasterList2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q24H7SU84Q;
 				INFOPLIST_FILE = MasterList2/Info.plist;
