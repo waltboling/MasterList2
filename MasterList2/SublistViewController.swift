@@ -8,16 +8,18 @@
 
 import UIKit
 import CloudKit
-//import ChameleonFramework
+import ChameleonFramework
 
 class SublistViewController: UIViewController, UITextFieldDelegate {
     
     var sublists = [CKRecord]()
     var masterList: CKRecord?
     var refresh = UIRefreshControl()
-    /*let backgroundColor: [UIColor] = [
-        UIColor.flatPlumDark,
-        UIColor.flatPurple
+    let backgroundColor = UIColor.flatTeal
+        /*[UIColor] = [
+        UIColor.flatTeal,
+        UIColor.flatTeal,
+        UIColor.flatMintDark
     ]*/
     
     //var fetchedResultsController: NSFetchedResultsController<DetailList>?
@@ -25,7 +27,7 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var inputNewItem: UITextField!
     @IBOutlet weak var addItemBtn: UIButton!
     @IBAction func addItemWasTapped(_ sender: Any) {
-        detailItemWasEntered()
+        sublistWasAdded()
     }
     
     @IBOutlet weak var sublistTableView: UITableView!
@@ -33,11 +35,11 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         inputNewItem.resignFirstResponder()
-        detailItemWasEntered()
+        sublistWasAdded()
         return true
     }
     
-    func detailItemWasEntered() {
+    func sublistWasAdded() {
        
         if inputNewItem.text != "" {
             let newSublist = CKRecord(recordType: "sublists")
@@ -74,7 +76,7 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: backgroundColor)
+        view.backgroundColor = .white
         
         sublistTableView.backgroundColor = .clear
         if let masterList = masterList {
@@ -95,6 +97,14 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.inputNewItem.delegate = self
+        addItemBtn.tintColor = UIColor.flatOrangeDark
+        let navBar = self.navigationController?.navigationBar
+        
+        navBar?.tintColor = backgroundColor
+        navBar?.barTintColor = .white
+        
+        //navBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navBar?.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name:"Quicksand-Bold", size: 18)!, .foregroundColor: backgroundColor]
     }
     
     //if edit button re-added
@@ -131,8 +141,8 @@ extension SublistViewController: UITableViewDataSource {
             
             sublistCell.textLabel?.text = sublistName
             sublistCell.backgroundColor = .clear
-            sublistCell.textLabel?.textColor = .black
-            //detailCell.textLabel?.font = UIFont(name:"Dense-Regular", size: 22)
+            sublistCell.textLabel?.textColor = UIColor.flatTeal
+            sublistCell.textLabel?.font = UIFont(name: "Quicksand-Regular", size: 17)
         }
         return sublistCell
     }
@@ -167,6 +177,13 @@ extension SublistViewController: UITableViewDataSource {
     
     //configure this later
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailItems" {
+            if let indexPath = self.sublistTableView.indexPathForSelectedRow {
+                let currentSublist = sublists[indexPath.row]
+                let controller = (segue.destination as! DetailItemsViewController)
+                controller.sublist = currentSublist
+            }
+        }
     }
  
  

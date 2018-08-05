@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E32E21B700489D0BB9DC5CD /* Pods_MasterList2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA915300F22860017AE217D3 /* Pods_MasterList2.framework */; };
+		E64A0CA92116532A00870439 /* Quicksand-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA12116532900870439 /* Quicksand-Light.otf */; };
+		E64A0CAA2116532A00870439 /* Quicksand-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA22116532900870439 /* Quicksand-Regular.otf */; };
+		E64A0CAB2116532A00870439 /* Quicksand-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA32116532A00870439 /* Quicksand-Bold.otf */; };
+		E64A0CAC2116532A00870439 /* Quicksand_Dash.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA42116532A00870439 /* Quicksand_Dash.otf */; };
+		E64A0CAD2116532A00870439 /* Quicksand-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */; };
+		E64A0CAE2116532A00870439 /* Quicksand-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA62116532A00870439 /* Quicksand-Italic.otf */; };
+		E64A0CAF2116532A00870439 /* Quicksand-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */; };
 		E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AEB2114DCC6004E289B /* AppDelegate.swift */; };
 		E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AED2114DCC6004E289B /* MasterViewController.swift */; };
 		E6701AF12114DCC6004E289B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6701AEF2114DCC6004E289B /* Main.storyboard */; };
@@ -19,6 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		65390E53A65072FE56BA1A92 /* Pods-MasterList2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterList2.release.xcconfig"; path = "Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2.release.xcconfig"; sourceTree = "<group>"; };
+		DA915300F22860017AE217D3 /* Pods_MasterList2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MasterList2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E64A0CA12116532900870439 /* Quicksand-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Light.otf"; path = "../../../../Downloads/quicksand/Quicksand-Light.otf"; sourceTree = "<group>"; };
+		E64A0CA22116532900870439 /* Quicksand-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.otf"; sourceTree = "<group>"; };
+		E64A0CA32116532A00870439 /* Quicksand-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.otf"; sourceTree = "<group>"; };
+		E64A0CA42116532A00870439 /* Quicksand_Dash.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Dash.otf; sourceTree = "<group>"; };
+		E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-LightItalic.otf"; sourceTree = "<group>"; };
+		E64A0CA62116532A00870439 /* Quicksand-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Italic.otf"; sourceTree = "<group>"; };
+		E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-BoldItalic.otf"; sourceTree = "<group>"; };
 		E6701AE82114DCC6004E289B /* MasterList2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterList2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6701AEB2114DCC6004E289B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6701AED2114DCC6004E289B /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +48,7 @@
 		E6701B012114E3FF004E289B /* DataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructs.swift; sourceTree = "<group>"; };
 		E6701B032114E432004E289B /* SublistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublistViewController.swift; sourceTree = "<group>"; };
 		E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemsViewController.swift; sourceTree = "<group>"; };
+		F1455A46FD7636151344A36A /* Pods-MasterList2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterList2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,18 +57,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6701B002114E378004E289B /* CloudKit.framework in Frameworks */,
+				9E32E21B700489D0BB9DC5CD /* Pods_MasterList2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		95E5491D27ABF73C64C6E10C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F1455A46FD7636151344A36A /* Pods-MasterList2.debug.xcconfig */,
+				65390E53A65072FE56BA1A92 /* Pods-MasterList2.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E64A0C9F2116521B00870439 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E64A0CA42116532A00870439 /* Quicksand_Dash.otf */,
+				E64A0CA32116532A00870439 /* Quicksand-Bold.otf */,
+				E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */,
+				E64A0CA62116532A00870439 /* Quicksand-Italic.otf */,
+				E64A0CA12116532900870439 /* Quicksand-Light.otf */,
+				E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */,
+				E64A0CA22116532900870439 /* Quicksand-Regular.otf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E6701ADF2114DCC6004E289B = {
 			isa = PBXGroup;
 			children = (
 				E6701AEA2114DCC6004E289B /* MasterList2 */,
 				E6701AE92114DCC6004E289B /* Products */,
 				E6701AFE2114E378004E289B /* Frameworks */,
+				95E5491D27ABF73C64C6E10C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +110,7 @@
 			children = (
 				E6701AFD2114E375004E289B /* MasterList2.entitlements */,
 				E6701AEB2114DCC6004E289B /* AppDelegate.swift */,
+				E64A0C9F2116521B00870439 /* Resources */,
 				E6701AED2114DCC6004E289B /* MasterViewController.swift */,
 				E6701B012114E3FF004E289B /* DataStructs.swift */,
 				E6701B032114E432004E289B /* SublistViewController.swift */,
@@ -83,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				E6701AFF2114E378004E289B /* CloudKit.framework */,
+				DA915300F22860017AE217D3 /* Pods_MasterList2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -94,9 +139,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E6701AFA2114DCC9004E289B /* Build configuration list for PBXNativeTarget "MasterList2" */;
 			buildPhases = (
+				CABFEF28133847BB5D8DE73A /* [CP] Check Pods Manifest.lock */,
 				E6701AE42114DCC6004E289B /* Sources */,
 				E6701AE52114DCC6004E289B /* Frameworks */,
 				E6701AE62114DCC6004E289B /* Resources */,
+				D163E864078B8B809DFD7BBA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,11 +202,57 @@
 			files = (
 				E6701AF62114DCC9004E289B /* LaunchScreen.storyboard in Resources */,
 				E6701AF32114DCC9004E289B /* Assets.xcassets in Resources */,
+				E64A0CAF2116532A00870439 /* Quicksand-BoldItalic.otf in Resources */,
+				E64A0CAB2116532A00870439 /* Quicksand-Bold.otf in Resources */,
+				E64A0CAE2116532A00870439 /* Quicksand-Italic.otf in Resources */,
+				E64A0CAC2116532A00870439 /* Quicksand_Dash.otf in Resources */,
 				E6701AF12114DCC6004E289B /* Main.storyboard in Resources */,
+				E64A0CAA2116532A00870439 /* Quicksand-Regular.otf in Resources */,
+				E64A0CAD2116532A00870439 /* Quicksand-LightItalic.otf in Resources */,
+				E64A0CA92116532A00870439 /* Quicksand-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CABFEF28133847BB5D8DE73A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MasterList2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D163E864078B8B809DFD7BBA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E6701AE42114DCC6004E289B /* Sources */ = {
@@ -312,6 +405,7 @@
 		};
 		E6701AFB2114DCC9004E289B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1455A46FD7636151344A36A /* Pods-MasterList2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MasterList2/MasterList2.entitlements;
@@ -331,6 +425,7 @@
 		};
 		E6701AFC2114DCC9004E289B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65390E53A65072FE56BA1A92 /* Pods-MasterList2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MasterList2/MasterList2.entitlements;

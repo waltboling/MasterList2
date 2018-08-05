@@ -7,7 +7,7 @@
 //
 import UIKit
 import CloudKit
-//import ChameleonFramework
+import ChameleonFramework
 
 class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -16,10 +16,11 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var refresh = UIRefreshControl()
     var detailController: SublistViewController?
     private let mainStoryboard = "Main"
-    /*let backgroundColor: [UIColor] = [
+    let colors: [UIColor] = [
+        UIColor.flatTeal,
         UIColor.flatTeal,
         UIColor.flatMintDark
-    ]*/
+    ]
     
     @IBOutlet weak var masterTableView: UITableView!
     
@@ -43,20 +44,41 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refresh.addTarget(self, action: #selector(MasterViewController.loadLists), for: .valueChanged)
         masterTableView.addSubview(refresh)
         
-        /*NotificationCenter.default.addObserver(self, selector: #selector(loadLists), name: NSNotification.Name(rawValue: "load"), object: nil)*/
-        
+        self.inputNewList.delegate = self
         self.loadLists()
+        addListBtn.tintColor = UIColor.flatOrangeDark
         
     }
-   /* override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //tableView.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: backgroundColor)
+        masterTableView.backgroundColor = .clear
+        view.backgroundColor = .white
+        
+        let navBar = self.navigationController?.navigationBar
+        /*var navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.tintColor = GradientColor(.topToBottom, frame: (navBar?.frame)!, colors: colors)
+        navBarAppearance.barTintColor = GradientColor(.topToBottom, frame: (navBar?.frame)!, colors: colors)*/
+        
+        //navBar?.barStyle = .default
+        navBar?.tintColor = .white
+        navBar?.barTintColor = GradientColor(.topToBottom, frame: (view.frame), colors: colors)
+        
+        //navBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navBar?.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name:"Quicksand-Bold", size: 18)!, .foregroundColor: UIColor.white]
+        self.navigationItem.title = "Master Lists"
         
         /*DispatchQueue.main.async(execute: {
          self.loadLists()
          })*/
         
-    }*/
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        inputNewList.resignFirstResponder()
+        masterListWasEntered()
+        return true
+    }
     
     func masterListWasEntered() {
         if inputNewList.text != "" {
@@ -138,7 +160,8 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         masterCell.backgroundColor = .clear
-       // masterCell.textLabel?.font = UIFont(name:"Dense-Regular", size: 26)
+        masterCell.textLabel?.font = UIFont(name:"Quicksand-Regular", size: 20)
+        masterCell.textLabel?.textColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
         
         return masterCell
     }
