@@ -15,6 +15,8 @@
 		E64A0CAD2116532A00870439 /* Quicksand-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */; };
 		E64A0CAE2116532A00870439 /* Quicksand-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA62116532A00870439 /* Quicksand-Italic.otf */; };
 		E64A0CAF2116532A00870439 /* Quicksand-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */; };
+		E64A0CB1211699D100870439 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64A0CB0211699D100870439 /* LogInViewController.swift */; };
+		E64A0CB42116A37900870439 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64A0CB32116A37900870439 /* UserData.swift */; };
 		E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AEB2114DCC6004E289B /* AppDelegate.swift */; };
 		E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AED2114DCC6004E289B /* MasterViewController.swift */; };
 		E6701AF12114DCC6004E289B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6701AEF2114DCC6004E289B /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 		E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-LightItalic.otf"; sourceTree = "<group>"; };
 		E64A0CA62116532A00870439 /* Quicksand-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Italic.otf"; sourceTree = "<group>"; };
 		E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-BoldItalic.otf"; sourceTree = "<group>"; };
+		E64A0CB0211699D100870439 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		E64A0CB32116A37900870439 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		E6701AE82114DCC6004E289B /* MasterList2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterList2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6701AEB2114DCC6004E289B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6701AED2114DCC6004E289B /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +91,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		E64A0CB22116A34600870439 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E6701B012114E3FF004E289B /* DataStructs.swift */,
+				E64A0CB32116A37900870439 /* UserData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E64A0CB52116C72A00870439 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E64A0CB0211699D100870439 /* LogInViewController.swift */,
+				E6701AED2114DCC6004E289B /* MasterViewController.swift */,
+				E6701B032114E432004E289B /* SublistViewController.swift */,
+				E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		E6701ADF2114DCC6004E289B = {
 			isa = PBXGroup;
 			children = (
@@ -111,11 +135,9 @@
 				E6701AFD2114E375004E289B /* MasterList2.entitlements */,
 				E6701AEB2114DCC6004E289B /* AppDelegate.swift */,
 				E64A0C9F2116521B00870439 /* Resources */,
-				E6701AED2114DCC6004E289B /* MasterViewController.swift */,
-				E6701B012114E3FF004E289B /* DataStructs.swift */,
-				E6701B032114E432004E289B /* SublistViewController.swift */,
+				E64A0CB22116A34600870439 /* Model */,
+				E64A0CB52116C72A00870439 /* ViewControllers */,
 				E6701AEF2114DCC6004E289B /* Main.storyboard */,
-				E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */,
 				E6701AF22114DCC9004E289B /* Assets.xcassets */,
 				E6701AF42114DCC9004E289B /* LaunchScreen.storyboard */,
 				E6701AF72114DCC9004E289B /* Info.plist */,
@@ -261,6 +283,8 @@
 			files = (
 				E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */,
 				E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */,
+				E64A0CB42116A37900870439 /* UserData.swift in Sources */,
+				E64A0CB1211699D100870439 /* LogInViewController.swift in Sources */,
 				E6701B022114E3FF004E289B /* DataStructs.swift in Sources */,
 				E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */,
 				E6701B042114E432004E289B /* SublistViewController.swift in Sources */,

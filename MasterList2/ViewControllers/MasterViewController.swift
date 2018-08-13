@@ -24,6 +24,12 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var masterTableView: UITableView!
     
+    @IBOutlet weak var logOutBtn: UIBarButtonItem!
+    
+    @IBAction func logOutWasTapped(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var inputNewList: UITextField!
     
     @IBOutlet weak var addListBtn: UIButton!
@@ -84,9 +90,9 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if inputNewList.text != "" {
             let newMaster = CKRecord(recordType: "masterLists")
             newMaster["listName"] = inputNewList.text as CKRecordValue?
-            let publicDatabase = CKContainer.default().publicCloudDatabase
+            let privateDatabase = CKContainer.default().privateCloudDatabase
             
-            publicDatabase.save(newMaster, completionHandler: {(record: CKRecord?, error: Error?) in
+            privateDatabase.save(newMaster, completionHandler: {(record: CKRecord?, error: Error?) in
                 if error == nil {
                     print("list saved")
                     DispatchQueue.main.async(execute: {
@@ -121,10 +127,10 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func loadLists() {
         print("in loadLists")
-        let publicDatabase = CKContainer.default().publicCloudDatabase
+        let privateDatabase = CKContainer.default().privateCloudDatabase
         let query = CKQuery(recordType: "MasterLists", predicate: NSPredicate(format: "TRUEPREDICATE", argumentArray: nil))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        publicDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+        privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
             if let lists = results {
                 self.masterLists = lists
                 print("\(self.masterLists.count) masterLists in loadLists")
@@ -174,9 +180,9 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if editingStyle == .delete {
             let selectedRecordID = masterLists[indexPath.row].recordID
             
-            let publicDatabase = CKContainer.default().publicCloudDatabase
+            let privateDatabase = CKContainer.default().privateCloudDatabase
             
-            publicDatabase.delete(withRecordID: selectedRecordID) { (recordID, error) -> Void in
+            privateDatabase.delete(withRecordID: selectedRecordID) { (recordID, error) -> Void in
                 if error != nil {
                     print(error!)
                 } else {

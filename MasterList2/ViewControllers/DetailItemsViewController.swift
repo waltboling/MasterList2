@@ -33,10 +33,10 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         if let sublist = sublist {
             self.navigationItem.title = sublist["sublistName"] as? String
             
-            let publicDatabase = CKContainer.default().publicCloudDatabase
+            let privateDatabase = CKContainer.default().privateCloudDatabase
             let reference = CKReference(recordID: sublist.recordID, action: .deleteSelf)
             let query = CKQuery(recordType: "detailItems", predicate: NSPredicate(format:"sublist == %@", reference))
-            publicDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+            privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
                 if let items = results {
                     self.detailItems = items
                     DispatchQueue.main.async(execute: {
@@ -64,9 +64,9 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
                 let reference = CKReference(recordID: list.recordID, action: .deleteSelf)
                 newDetailItem.setObject(reference, forKey: "sublist")
                 
-                let publicDatabase = CKContainer.default().publicCloudDatabase
+                let privateDatabase = CKContainer.default().privateCloudDatabase
                 
-                publicDatabase.save(newDetailItem, completionHandler: { (record: CKRecord?, error: Error?) in
+                privateDatabase.save(newDetailItem, completionHandler: { (record: CKRecord?, error: Error?) in
                     if error == nil {
                         print("list saved")
                         DispatchQueue.main.async(execute: {

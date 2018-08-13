@@ -49,9 +49,9 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
                 let reference = CKReference(recordID: list.recordID, action: .deleteSelf)
                 newSublist.setObject(reference, forKey: "masterList")
                 
-                let publicDatabase = CKContainer.default().publicCloudDatabase
+                let privateDatabase = CKContainer.default().privateCloudDatabase
                 
-                publicDatabase.save(newSublist, completionHandler: { (record: CKRecord?, error: Error?) in
+                privateDatabase.save(newSublist, completionHandler: { (record: CKRecord?, error: Error?) in
                     if error == nil {
                         print("list saved")
                         DispatchQueue.main.async(execute: {
@@ -82,10 +82,10 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
         if let masterList = masterList {
             self.navigationItem.title = masterList["listName"] as? String
             
-            let publicDatabase = CKContainer.default().publicCloudDatabase
+            let privateDatabase = CKContainer.default().privateCloudDatabase
             let reference = CKReference(recordID: masterList.recordID, action: .deleteSelf)
             let query = CKQuery(recordType: "sublists", predicate: NSPredicate(format:"masterList == %@", reference))
-            publicDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+            privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
                 if let items = results {
                     self.sublists = items
                     DispatchQueue.main.async(execute: {
@@ -160,9 +160,9 @@ extension SublistViewController: UITableViewDataSource {
         if editingStyle == .delete {
             let selectedRecordID = sublists[indexPath.row].recordID
             
-            let publicDatabase = CKContainer.default().publicCloudDatabase
+            let privateDatabase = CKContainer.default().privateCloudDatabase
             
-            publicDatabase.delete(withRecordID: selectedRecordID) { (recordID, error) -> Void in
+            privateDatabase.delete(withRecordID: selectedRecordID) { (recordID, error) -> Void in
                 if error != nil {
                     print(error!)
                 } else {
