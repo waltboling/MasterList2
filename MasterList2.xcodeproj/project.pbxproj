@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9E32E21B700489D0BB9DC5CD /* Pods_MasterList2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA915300F22860017AE217D3 /* Pods_MasterList2.framework */; };
-		E64A0CA92116532A00870439 /* Quicksand-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA12116532900870439 /* Quicksand-Light.otf */; };
 		E64A0CAA2116532A00870439 /* Quicksand-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA22116532900870439 /* Quicksand-Regular.otf */; };
 		E64A0CAB2116532A00870439 /* Quicksand-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA32116532A00870439 /* Quicksand-Bold.otf */; };
 		E64A0CAC2116532A00870439 /* Quicksand_Dash.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA42116532A00870439 /* Quicksand_Dash.otf */; };
@@ -25,13 +24,18 @@
 		E6701B002114E378004E289B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6701AFF2114E378004E289B /* CloudKit.framework */; };
 		E6701B022114E3FF004E289B /* DataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701B012114E3FF004E289B /* DataStructs.swift */; };
 		E6701B042114E432004E289B /* SublistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701B032114E432004E289B /* SublistViewController.swift */; };
+		E671E8EA212203AC009DE2E0 /* PopoverMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8E9212203AC009DE2E0 /* PopoverMenuTableViewController.swift */; };
+		E671E8EB21220508009DE2E0 /* PopoverMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E671E8E82121D51B009DE2E0 /* PopoverMenu.storyboard */; };
+		E671E8ED21222242009DE2E0 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8EC21222242009DE2E0 /* RemindersManager.swift */; };
+		E671E8EF2122228D009DE2E0 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8EE2122228D009DE2E0 /* Reminder.swift */; };
+		E671E8F621226D56009DE2E0 /* CustomNumberKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8F521226D56009DE2E0 /* CustomNumberKeyboard.swift */; };
+		E671E8F821226EF4009DE2E0 /* LocationReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */; };
 		E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		65390E53A65072FE56BA1A92 /* Pods-MasterList2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterList2.release.xcconfig"; path = "Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2.release.xcconfig"; sourceTree = "<group>"; };
 		DA915300F22860017AE217D3 /* Pods_MasterList2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MasterList2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E64A0CA12116532900870439 /* Quicksand-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Light.otf"; path = "../../../../Downloads/quicksand/Quicksand-Light.otf"; sourceTree = "<group>"; };
 		E64A0CA22116532900870439 /* Quicksand-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.otf"; sourceTree = "<group>"; };
 		E64A0CA32116532A00870439 /* Quicksand-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.otf"; sourceTree = "<group>"; };
 		E64A0CA42116532A00870439 /* Quicksand_Dash.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Dash.otf; sourceTree = "<group>"; };
@@ -51,6 +55,13 @@
 		E6701AFF2114E378004E289B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E6701B012114E3FF004E289B /* DataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructs.swift; sourceTree = "<group>"; };
 		E6701B032114E432004E289B /* SublistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublistViewController.swift; sourceTree = "<group>"; };
+		E671E8E82121D51B009DE2E0 /* PopoverMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PopoverMenu.storyboard; sourceTree = "<group>"; };
+		E671E8E9212203AC009DE2E0 /* PopoverMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverMenuTableViewController.swift; sourceTree = "<group>"; };
+		E671E8EC21222242009DE2E0 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
+		E671E8EE2122228D009DE2E0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		E671E8F221226CED009DE2E0 /* Quicksand-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.otf"; sourceTree = "<group>"; };
+		E671E8F521226D56009DE2E0 /* CustomNumberKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberKeyboard.swift; sourceTree = "<group>"; };
+		E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReminderViewController.swift; sourceTree = "<group>"; };
 		E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemsViewController.swift; sourceTree = "<group>"; };
 		F1455A46FD7636151344A36A /* Pods-MasterList2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterList2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,13 +91,8 @@
 		E64A0C9F2116521B00870439 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E64A0CA42116532A00870439 /* Quicksand_Dash.otf */,
-				E64A0CA32116532A00870439 /* Quicksand-Bold.otf */,
-				E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */,
-				E64A0CA62116532A00870439 /* Quicksand-Italic.otf */,
-				E64A0CA12116532900870439 /* Quicksand-Light.otf */,
-				E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */,
-				E64A0CA22116532900870439 /* Quicksand-Regular.otf */,
+				E671E8F121226CEC009DE2E0 /* Quicksand Font */,
+				E671E8F521226D56009DE2E0 /* CustomNumberKeyboard.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -96,6 +102,8 @@
 			children = (
 				E6701B012114E3FF004E289B /* DataStructs.swift */,
 				E64A0CB32116A37900870439 /* UserData.swift */,
+				E671E8EC21222242009DE2E0 /* RemindersManager.swift */,
+				E671E8EE2122228D009DE2E0 /* Reminder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -107,6 +115,8 @@
 				E6701AED2114DCC6004E289B /* MasterViewController.swift */,
 				E6701B032114E432004E289B /* SublistViewController.swift */,
 				E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */,
+				E671E8E9212203AC009DE2E0 /* PopoverMenuTableViewController.swift */,
+				E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -137,9 +147,8 @@
 				E64A0C9F2116521B00870439 /* Resources */,
 				E64A0CB22116A34600870439 /* Model */,
 				E64A0CB52116C72A00870439 /* ViewControllers */,
-				E6701AEF2114DCC6004E289B /* Main.storyboard */,
+				E671E8F0212267A8009DE2E0 /* Storyboards */,
 				E6701AF22114DCC9004E289B /* Assets.xcassets */,
-				E6701AF42114DCC9004E289B /* LaunchScreen.storyboard */,
 				E6701AF72114DCC9004E289B /* Info.plist */,
 			);
 			path = MasterList2;
@@ -152,6 +161,30 @@
 				DA915300F22860017AE217D3 /* Pods_MasterList2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E671E8F0212267A8009DE2E0 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E671E8E82121D51B009DE2E0 /* PopoverMenu.storyboard */,
+				E6701AEF2114DCC6004E289B /* Main.storyboard */,
+				E6701AF42114DCC9004E289B /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E671E8F121226CEC009DE2E0 /* Quicksand Font */ = {
+			isa = PBXGroup;
+			children = (
+				E64A0CA42116532A00870439 /* Quicksand_Dash.otf */,
+				E64A0CA32116532A00870439 /* Quicksand-Bold.otf */,
+				E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */,
+				E64A0CA62116532A00870439 /* Quicksand-Italic.otf */,
+				E671E8F221226CED009DE2E0 /* Quicksand-Light.otf */,
+				E64A0CA52116532A00870439 /* Quicksand-LightItalic.otf */,
+				E64A0CA22116532900870439 /* Quicksand-Regular.otf */,
+			);
+			path = "Quicksand Font";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,9 +262,9 @@
 				E64A0CAE2116532A00870439 /* Quicksand-Italic.otf in Resources */,
 				E64A0CAC2116532A00870439 /* Quicksand_Dash.otf in Resources */,
 				E6701AF12114DCC6004E289B /* Main.storyboard in Resources */,
+				E671E8EB21220508009DE2E0 /* PopoverMenu.storyboard in Resources */,
 				E64A0CAA2116532A00870439 /* Quicksand-Regular.otf in Resources */,
 				E64A0CAD2116532A00870439 /* Quicksand-LightItalic.otf in Resources */,
-				E64A0CA92116532A00870439 /* Quicksand-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,12 +315,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */,
+				E671E8F821226EF4009DE2E0 /* LocationReminderViewController.swift in Sources */,
 				E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */,
 				E64A0CB42116A37900870439 /* UserData.swift in Sources */,
 				E64A0CB1211699D100870439 /* LogInViewController.swift in Sources */,
 				E6701B022114E3FF004E289B /* DataStructs.swift in Sources */,
 				E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */,
+				E671E8EA212203AC009DE2E0 /* PopoverMenuTableViewController.swift in Sources */,
+				E671E8F621226D56009DE2E0 /* CustomNumberKeyboard.swift in Sources */,
+				E671E8ED21222242009DE2E0 /* RemindersManager.swift in Sources */,
 				E6701B042114E432004E289B /* SublistViewController.swift in Sources */,
+				E671E8EF2122228D009DE2E0 /* Reminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

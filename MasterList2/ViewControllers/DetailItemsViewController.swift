@@ -48,6 +48,7 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
         
         addItemBtn.tintColor = UIColor.flatOrangeDark
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -89,6 +90,7 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
 
     //MARK: Table View Data Source / Delegate
     
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -110,5 +112,7 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         
         return detailCell
     }
+    
+   
     
 }

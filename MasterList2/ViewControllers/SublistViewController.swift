@@ -107,6 +107,9 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
         navBar?.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name:"Quicksand-Bold", size: 18)!, .foregroundColor: backgroundColor]
     }
     
+    @IBAction func addRemindersWasTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "PresentFromSublist", sender: self)
+    }
     //if edit button re-added
     /*override func setEditing(_ editing: Bool, animated: Bool) {
      super.setEditing(editing, animated: animated)
@@ -185,6 +188,10 @@ extension SublistViewController: UITableViewDataSource {
             }
         }
     }
+    
+    /*func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        performSegue(withIdentifier: "PresentFromSublist", sender: self)
+    }*/
  
  
 }
