@@ -22,7 +22,9 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
         UIColor.flatMintDark
     ]*/
     
-    //var fetchedResultsController: NSFetchedResultsController<DetailList>?
+    
+    var longPressGesture = UIGestureRecognizer()
+    //var testGesture = UIGestureRecognizer()
     
     @IBOutlet weak var inputNewItem: UITextField!
     @IBOutlet weak var addItemBtn: UIButton!
@@ -76,11 +78,15 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
+       
         view.backgroundColor = .white
         
         sublistTableView.backgroundColor = .clear
         if let masterList = masterList {
             self.navigationItem.title = masterList["listName"] as? String
+            
+           
             
             let privateDatabase = CKContainer.default().privateCloudDatabase
             let reference = CKReference(recordID: masterList.recordID, action: .deleteSelf)
@@ -96,6 +102,8 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+        sublistTableView.addGestureRecognizer(longPressGesture)
+        
         self.inputNewItem.delegate = self
         addItemBtn.tintColor = UIColor.flatOrangeDark
         let navBar = self.navigationController?.navigationBar
@@ -108,7 +116,7 @@ class SublistViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addRemindersWasTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "PresentFromSublist", sender: self)
+        performSegue(withIdentifier: "ShowFromSublist", sender: self)
     }
     //if edit button re-added
     /*override func setEditing(_ editing: Bool, animated: Bool) {
@@ -186,7 +194,18 @@ extension SublistViewController: UITableViewDataSource {
                 let controller = (segue.destination as! DetailItemsViewController)
                 controller.sublist = currentSublist
             }
+        } else if segue.identifier == "ShowFromSublist" {
+            let touchPoint = longPressGesture.location(in: self.sublistTableView)
+            if let indexPath = self.sublistTableView.indexPathForRow(at: touchPoint) {
+                let currentSublist = sublists[indexPath.row]
+                let controller = (segue.destination as! PopoverMenuTableViewController)
+                controller.currentList = currentSublist
+            }
         }
+    }
+    
+    @objc func handleLongPress(recognizer: UILongPressGestureRecognizer) {
+        performSegue(withIdentifier: "ShowFromSublist", sender: self)
     }
     
     /*func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {

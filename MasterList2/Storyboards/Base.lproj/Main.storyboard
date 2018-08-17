@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aPB-pD-dUS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6v3-NW-oSa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -96,7 +96,7 @@
                         <outlet property="inputNewItem" destination="NX6-ae-kYk" id="kDT-Bt-Ey8"/>
                         <outlet property="sublistTableView" destination="com-DB-0jo" id="pWf-Rc-aGl"/>
                         <segue destination="yfZ-xq-pen" kind="show" identifier="toDetailItems" id="MPP-Uh-dAb"/>
-                        <segue destination="tNT-1e-w8R" kind="show" identifier="PresentFromSublist" id="Vm3-eC-235"/>
+                        <segue destination="tNT-1e-w8R" kind="show" identifier="ShowFromSublist" id="Vm3-eC-235"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4AN-B8-hGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -123,7 +123,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="tNT-1e-w8R" kind="show" identifier="PresentFromDetailList" trigger="accessoryAction" id="80H-eM-kee"/>
+                                            <segue destination="tNT-1e-w8R" kind="show" identifier="ShowFromDetailList" trigger="accessoryAction" id="80H-eM-kee"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -144,7 +144,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DG7-Kh-sor">
-                                <rect key="frame" x="140" y="569" width="80" height="80"/>
+                                <rect key="frame" x="140" y="568.5" width="80" height="80"/>
                                 <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="cxA-5L-UTa"/>
@@ -425,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LV6-xH-rvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-703.20000000000005" y="276.61169415292358"/>
+            <point key="canvasLocation" x="-945" y="-200"/>
         </scene>
         <!--Sublist Navigation Controller-->
         <scene sceneID="olP-Nh-9lV">
@@ -447,7 +447,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Lyh-yd-hky"/>
-        <segue reference="Vm3-eC-235"/>
+        <segue reference="nkU-W7-eHO"/>
+        <segue reference="80H-eM-kee"/>
     </inferredMetricsTieBreakers>
 </document>

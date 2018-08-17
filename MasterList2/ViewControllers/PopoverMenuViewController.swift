@@ -7,12 +7,32 @@
 //
 
 import UIKit
+import CloudKit
 
 class PopoverMenuTableViewController: UITableViewController {
-
+    var currentList: CKRecord?
+   // var notes: [CKRecord]?
+   // var note: CKRecord?
+    
+    let privateDatabase = CKContainer.default().privateCloudDatabase
+    
+    @IBOutlet weak var photoLabel: UILabel!
+    
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    @IBOutlet weak var displayNotesTextView: UITextView!
+    
+    @IBOutlet weak var deadlineLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Reminders"
 
+        if let currentList = currentList {
+            self.displayNotesTextView.text = currentList["note"] as? String
+           
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -20,14 +40,27 @@ class PopoverMenuTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //var controller = segue.destination
+        if segue.identifier == "PresentPhotoPicker" {
+            let controller = segue.destination as! SetImageViewController
+            controller.currentList = currentList
+        } else if segue.identifier == "PresentLocation" {
+            let controller = segue.destination as! LocationReminderViewController
+            controller.currentList = currentList
+        } else if segue.identifier == "PresentDeadline" {
+            let controller = segue.destination as! SetDeadlineViewController
+            controller.currentList = currentList
+        } else {
+            let controller = segue.destination as! CreateNoteViewController
+            controller.currentList = currentList
+        }
+        
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+   /* override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }
@@ -35,7 +68,7 @@ class PopoverMenuTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
-    }
+    }*/
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

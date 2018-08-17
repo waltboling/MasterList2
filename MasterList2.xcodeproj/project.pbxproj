@@ -24,12 +24,15 @@
 		E6701B002114E378004E289B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6701AFF2114E378004E289B /* CloudKit.framework */; };
 		E6701B022114E3FF004E289B /* DataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701B012114E3FF004E289B /* DataStructs.swift */; };
 		E6701B042114E432004E289B /* SublistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701B032114E432004E289B /* SublistViewController.swift */; };
-		E671E8EA212203AC009DE2E0 /* PopoverMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8E9212203AC009DE2E0 /* PopoverMenuTableViewController.swift */; };
+		E671E8EA212203AC009DE2E0 /* PopoverMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8E9212203AC009DE2E0 /* PopoverMenuViewController.swift */; };
 		E671E8EB21220508009DE2E0 /* PopoverMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E671E8E82121D51B009DE2E0 /* PopoverMenu.storyboard */; };
 		E671E8ED21222242009DE2E0 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8EC21222242009DE2E0 /* RemindersManager.swift */; };
 		E671E8EF2122228D009DE2E0 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8EE2122228D009DE2E0 /* Reminder.swift */; };
-		E671E8F621226D56009DE2E0 /* CustomNumberKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8F521226D56009DE2E0 /* CustomNumberKeyboard.swift */; };
+		E671E8F621226D56009DE2E0 /* KeyboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8F521226D56009DE2E0 /* KeyboardExtensions.swift */; };
 		E671E8F821226EF4009DE2E0 /* LocationReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */; };
+		E671E8FB2123642F009DE2E0 /* SetImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8FA2123642F009DE2E0 /* SetImageViewController.swift */; };
+		E671E8FD21236AA1009DE2E0 /* SetDeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8FC21236AA1009DE2E0 /* SetDeadlineViewController.swift */; };
+		E671E8FF21236ACE009DE2E0 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E671E8FE21236ACE009DE2E0 /* CreateNoteViewController.swift */; };
 		E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,12 +59,15 @@
 		E6701B012114E3FF004E289B /* DataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructs.swift; sourceTree = "<group>"; };
 		E6701B032114E432004E289B /* SublistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublistViewController.swift; sourceTree = "<group>"; };
 		E671E8E82121D51B009DE2E0 /* PopoverMenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PopoverMenu.storyboard; sourceTree = "<group>"; };
-		E671E8E9212203AC009DE2E0 /* PopoverMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverMenuTableViewController.swift; sourceTree = "<group>"; };
+		E671E8E9212203AC009DE2E0 /* PopoverMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverMenuViewController.swift; sourceTree = "<group>"; };
 		E671E8EC21222242009DE2E0 /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		E671E8EE2122228D009DE2E0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		E671E8F221226CED009DE2E0 /* Quicksand-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.otf"; sourceTree = "<group>"; };
-		E671E8F521226D56009DE2E0 /* CustomNumberKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberKeyboard.swift; sourceTree = "<group>"; };
+		E671E8F521226D56009DE2E0 /* KeyboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtensions.swift; sourceTree = "<group>"; };
 		E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReminderViewController.swift; sourceTree = "<group>"; };
+		E671E8FA2123642F009DE2E0 /* SetImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageViewController.swift; sourceTree = "<group>"; };
+		E671E8FC21236AA1009DE2E0 /* SetDeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeadlineViewController.swift; sourceTree = "<group>"; };
+		E671E8FE21236ACE009DE2E0 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemsViewController.swift; sourceTree = "<group>"; };
 		F1455A46FD7636151344A36A /* Pods-MasterList2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterList2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MasterList2/Pods-MasterList2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				E671E8F121226CEC009DE2E0 /* Quicksand Font */,
-				E671E8F521226D56009DE2E0 /* CustomNumberKeyboard.swift */,
+				E671E8F521226D56009DE2E0 /* KeyboardExtensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -115,8 +121,8 @@
 				E6701AED2114DCC6004E289B /* MasterViewController.swift */,
 				E6701B032114E432004E289B /* SublistViewController.swift */,
 				E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */,
-				E671E8E9212203AC009DE2E0 /* PopoverMenuTableViewController.swift */,
-				E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */,
+				E671E8E9212203AC009DE2E0 /* PopoverMenuViewController.swift */,
+				E671E8F921236260009DE2E0 /* Popovers */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -185,6 +191,17 @@
 				E64A0CA22116532900870439 /* Quicksand-Regular.otf */,
 			);
 			path = "Quicksand Font";
+			sourceTree = "<group>";
+		};
+		E671E8F921236260009DE2E0 /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				E671E8F721226EF4009DE2E0 /* LocationReminderViewController.swift */,
+				E671E8FA2123642F009DE2E0 /* SetImageViewController.swift */,
+				E671E8FC21236AA1009DE2E0 /* SetDeadlineViewController.swift */,
+				E671E8FE21236ACE009DE2E0 /* CreateNoteViewController.swift */,
+			);
+			path = Popovers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,11 +338,14 @@
 				E64A0CB1211699D100870439 /* LogInViewController.swift in Sources */,
 				E6701B022114E3FF004E289B /* DataStructs.swift in Sources */,
 				E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */,
-				E671E8EA212203AC009DE2E0 /* PopoverMenuTableViewController.swift in Sources */,
-				E671E8F621226D56009DE2E0 /* CustomNumberKeyboard.swift in Sources */,
+				E671E8EA212203AC009DE2E0 /* PopoverMenuViewController.swift in Sources */,
+				E671E8F621226D56009DE2E0 /* KeyboardExtensions.swift in Sources */,
 				E671E8ED21222242009DE2E0 /* RemindersManager.swift in Sources */,
 				E6701B042114E432004E289B /* SublistViewController.swift in Sources */,
 				E671E8EF2122228D009DE2E0 /* Reminder.swift in Sources */,
+				E671E8FB2123642F009DE2E0 /* SetImageViewController.swift in Sources */,
+				E671E8FF21236ACE009DE2E0 /* CreateNoteViewController.swift in Sources */,
+				E671E8FD21236AA1009DE2E0 /* SetDeadlineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

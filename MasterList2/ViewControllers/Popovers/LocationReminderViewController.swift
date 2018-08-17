@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import UserNotifications
+import CloudKit
 
 class LocationReminderViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -19,6 +21,7 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
     
     @IBOutlet weak var addressSearchBar: UISearchBar!
     
+    var currentList: CKRecord?
     var locationManager = CLLocationManager()
     var userLocation: CLLocationCoordinate2D?
     
@@ -32,6 +35,16 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
         
         addressSearchBar.delegate = self
         
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge];
+        //maybe move all instances of the notCenter to Menu's viewDidLoad
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: options) { (granted, error) in
+            if granted {
+                print("Accepted permission.")
+            } else {
+                print("Did not accept permission.")
+            }
+        }
        self.locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -39,7 +52,7 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
             //locationManager.stopUpdatingLocation()
-        //setting map region (from geofencing code. above is diff version of same)
+        //setting map region
         /*if let location = RemindersManager.shared.currentLocation {
             let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
@@ -50,6 +63,7 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
 
         }
         
+        
         addMapTrackingButton()
 
     }
@@ -58,7 +72,7 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //let locValue: CLLocationCoordinate2D = manager.location!.coordinate
         let userLocation = locations.last
-        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let span = MKCoordinateSpanMake(0.1, 0.1)
         let viewRegion = MKCoordinateRegionMake((userLocation?.coordinate)!, span)
         self.mapView.setRegion(viewRegion, animated: true)
         locationManager.stopUpdatingLocation()
@@ -95,6 +109,9 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
             if response == nil {
                 print("error") // eventually should show error alert
             } else {
+                //for removing annotations (maybe dont want)
+                let annotations = self.mapView.annotations
+                self.mapView.removeAnnotations(annotations)
                 
                 //getting data
                 let latitude = response?.boundingRegion.center.latitude
@@ -107,9 +124,9 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
                 self.mapView.addAnnotation(annotation)
                 
                 //zooming in on annotation
-                let coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude!, longitude!)
+                self.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
                 let span = MKCoordinateSpanMake(0.01, 0.01)
-                let region = MKCoordinateRegionMake(coordinate, span)
+                let region = MKCoordinateRegionMake(self.coordinate!, span)
                 self.mapView.setRegion(region, animated: true)
             }
             
@@ -134,14 +151,18 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
             selectedRadius = 200
         } else if radiusIndex == 2 {
             selectedRadius = 500
-        } else {
+        } else if radiusIndex == 3 {
             selectedRadius = 1000
+        } else {
+            print("error getting radius")
         }
+        print("selected radius is \(selectedRadius)")
         
         if let coordinate = coordinate {
             let reminder = Reminder(coordinate: coordinate, notifyOnEntry: notifyOnEntry, notifyOnExit: notifyOnExit, selectedRadius: selectedRadius)
             RemindersManager.shared.add(reminder: reminder)
             dismiss(animated: true, completion: nil)
+            print("coordinate is \(coordinate)")
         }
         
         //need to set up iCloud saving still

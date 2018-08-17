@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import UserNotifications
+
 class RemindersManager: NSObject {
 
         let locationManager = CLLocationManager()
@@ -16,7 +18,8 @@ class RemindersManager: NSObject {
         let userDefaults = UserDefaults.standard
         static let shared = RemindersManager()
         let userDefaultsKey = "RemindersUserDefaultsKey"
-        
+        let notificationCenter = UNUserNotificationCenter.current()
+    
         func updateLocation() {
             locationManager.delegate = self
             locationManager.requestAlwaysAuthorization()
@@ -81,9 +84,30 @@ class RemindersManager: NSObject {
         func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
             for reminder in reminders() {
                 if reminder.identifier == region.identifier {
-                    showAlert(reminder: reminder)
+                    //showAlert(reminder: reminder)
+                    locNotification(reminder: reminder)
                 }
             }
+        }
+        
+        func locNotification(reminder: Reminder) {
+            let content = UNMutableNotificationContent()
+            content.title = "You have tasks due nearby"
+            content.body = "further description to come"
+            content.sound = UNNotificationSound.default()
+            let region = CLCircularRegion(center: reminder.coordinate, radius: CLLocationDistance(reminder.selectedRadius), identifier: reminder.identifier)
+            let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+            let identifier = "identifier"
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            
+            notificationCenter.add(request, withCompletionHandler: { (error) in
+                if error != nil {
+                    print("Something went wrong")
+                } else {
+                    print("location notification set up successfully")
+                }
+            })
+        
         }
         
         func showAlert(reminder: Reminder) {
