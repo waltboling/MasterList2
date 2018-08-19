@@ -8,121 +8,64 @@
 
 import UIKit
 import CloudKit
+import Flurry_iOS_SDK
 
 class PopoverMenuTableViewController: UITableViewController {
-    var currentList: CKRecord?
-   // var notes: [CKRecord]?
-   // var note: CKRecord?
     
+    var currentList: CKRecord?
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
+    //IB Outlets
     @IBOutlet weak var photoLabel: UILabel!
-    
     @IBOutlet weak var locationLabel: UILabel!
-    
     @IBOutlet weak var displayNotesTextView: UITextView!
-    
     @IBOutlet weak var deadlineLabel: UILabel!
+    @IBOutlet weak var photoButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationItem.title = "Reminders"
 
-        if let currentList = currentList {
-            self.displayNotesTextView.text = currentList["note"] as? String
-           
+        if let list = currentList {
+            self.displayNotesTextView.text = list["note"] as? String
+            self.deadlineLabel.text = list["deadline"] as? String
+            self.locationLabel.text = list["location"] as? String
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let list = currentList {
+            let listName = list["listName"] as? String
+            self.displayNotesTextView.text = list["note"] as? String
+            self.deadlineLabel.text = list["deadline"] as? String
+            self.locationLabel.text = list["location"] as? String
+            if let photo = list["photo"] as? CKAsset {
+                self.photoButton.imageView?.image = UIImage(contentsOfFile: (photo.fileURL.path))
+            self.photoLabel.text = listName! + "_img"
+            }
+            
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //var controller = segue.destination
-        if segue.identifier == "PresentPhotoPicker" {
+        if segue.identifier == DataStructs.toPhotoPicker {
             let controller = segue.destination as! SetImageViewController
             controller.currentList = currentList
-        } else if segue.identifier == "PresentLocation" {
+        } else if segue.identifier == DataStructs.toLocation {
             let controller = segue.destination as! LocationReminderViewController
             controller.currentList = currentList
-        } else if segue.identifier == "PresentDeadline" {
+        } else if segue.identifier == DataStructs.toDeadline {
             let controller = segue.destination as! SetDeadlineViewController
             controller.currentList = currentList
         } else {
             let controller = segue.destination as! CreateNoteViewController
+            
             controller.currentList = currentList
+            
         }
-        
     }
 
-    // MARK: - Table view data source
-
-   /* override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }*/
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    // MARK: - Table view data source (static cells currently set in storyboard)
 }

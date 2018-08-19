@@ -10,25 +10,24 @@ import UIKit
 import MapKit
 import UserNotifications
 import CloudKit
+import Flurry_iOS_SDK
 
 class LocationReminderViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
-    
-    @IBOutlet weak var mapView: MKMapView!
-    
-    @IBOutlet weak var radiusControl: UISegmentedControl!
-    @IBOutlet weak var notificationControl: UISegmentedControl!
-    @IBOutlet weak var inputAddressTextField: UITextField!
-    
-    @IBOutlet weak var addressSearchBar: UISearchBar!
     
     var currentList: CKRecord?
     var locationManager = CLLocationManager()
     var userLocation: CLLocationCoordinate2D?
-    
+    var myAnnotation = MKPointAnnotation()
     var coordinate: CLLocationCoordinate2D?
     var selectedRadius = 0
     let userDefaults = UserDefaults.standard
+    let privateDatabase = CKContainer.default().privateCloudDatabase
     
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var radiusControl: UISegmentedControl!
+    @IBOutlet weak var notificationControl: UISegmentedControl!
+    @IBOutlet weak var inputAddressTextField: UITextField!
+    @IBOutlet weak var addressSearchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +61,6 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
             mapView.showsUserLocation = true
 
         }
-        
-        
         addMapTrackingButton()
 
     }
@@ -118,10 +115,9 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
                 let longitude = response?.boundingRegion.center.longitude
                 
                 //create annotation
-                let annotation = MKPointAnnotation()
-                annotation.title = searchBar.text
-                annotation.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
-                self.mapView.addAnnotation(annotation)
+                self.myAnnotation.title = searchBar.text
+                self.myAnnotation.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
+                self.mapView.addAnnotation(self.myAnnotation)
                 
                 //zooming in on annotation
                 self.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
@@ -129,13 +125,10 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
                 let region = MKCoordinateRegionMake(self.coordinate!, span)
                 self.mapView.setRegion(region, animated: true)
             }
-            
         }
-    
     }
     
     //IBActions
-
     @IBAction func cancelWasTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -165,7 +158,19 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
             print("coordinate is \(coordinate)")
         }
         
-        //need to set up iCloud saving still
+        if let list = currentList {
+            list["location"] = myAnnotation.title as CKRecordValue?
+            
+            privateDatabase.save(list, completionHandler: { (record: CKRecord?, error: Error?) in
+                if error == nil {
+                    print("location saved!")
+                } else {
+                    print("Error: \(error.debugDescription)")
+                }
+            })
+        }
+        
+        Flurry.logEvent("Location Reminder Added")
     }
     
     func addMapTrackingButton(){
@@ -185,5 +190,4 @@ class LocationReminderViewController: UIViewController, UITextFieldDelegate, UIS
             locationManager.startUpdatingLocation()
         }
     }
-    
 }

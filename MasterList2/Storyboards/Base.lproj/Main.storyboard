@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,21 +42,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="akZ-sT-Ypi" id="qvK-Rc-0Fq">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pCB-Zx-hnB">
-                                                    <rect key="frame" x="330" y="11" width="30" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <state key="normal" title="+"/>
-                                                    <connections>
-                                                        <action selector="addRemindersWasTapped:" destination="Sb9-db-Jde" eventType="touchUpInside" id="mec-FW-5j6"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="pCB-Zx-hnB" secondAttribute="trailing" id="SIy-qC-woe"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="pCB-Zx-hnB" secondAttribute="bottom" id="THT-iM-2q1"/>
-                                                <constraint firstItem="pCB-Zx-hnB" firstAttribute="top" secondItem="qvK-Rc-0Fq" secondAttribute="topMargin" id="r9i-83-M28"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -95,8 +79,8 @@
                         <outlet property="addItemBtn" destination="MSf-to-reB" id="xSi-Cs-gUf"/>
                         <outlet property="inputNewItem" destination="NX6-ae-kYk" id="kDT-Bt-Ey8"/>
                         <outlet property="sublistTableView" destination="com-DB-0jo" id="pWf-Rc-aGl"/>
-                        <segue destination="yfZ-xq-pen" kind="show" identifier="toDetailItems" id="MPP-Uh-dAb"/>
-                        <segue destination="tNT-1e-w8R" kind="show" identifier="ShowFromSublist" id="Vm3-eC-235"/>
+                        <segue destination="yfZ-xq-pen" kind="show" identifier="ShowDetailList" id="MPP-Uh-dAb"/>
+                        <segue destination="tNT-1e-w8R" kind="show" identifier="ShowFromSublist" id="avs-yZ-2C8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4AN-B8-hGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,7 +128,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DG7-Kh-sor">
-                                <rect key="frame" x="140" y="568.5" width="80" height="80"/>
+                                <rect key="frame" x="140" y="569" width="80" height="80"/>
                                 <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="cxA-5L-UTa"/>
@@ -293,7 +277,7 @@
                         <outlet property="inputNewList" destination="cdP-bd-OIq" id="2vv-i4-HLn"/>
                         <outlet property="logOutBtn" destination="Lqi-sp-FOY" id="xdx-LF-Kt6"/>
                         <outlet property="masterTableView" destination="IqP-9J-eSf" id="tNi-my-OMf"/>
-                        <segue destination="2lS-Sp-g7G" kind="showDetail" identifier="ShowDetail" id="Lyh-yd-hky"/>
+                        <segue destination="2lS-Sp-g7G" kind="showDetail" identifier="ShowSublist" id="Lyh-yd-hky"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDg-yp-wtS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,7 +431,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nkU-W7-eHO"/>
-        <segue reference="80H-eM-kee"/>
+        <segue reference="Lyh-yd-hky"/>
+        <segue reference="avs-yZ-2C8"/>
     </inferredMetricsTieBreakers>
 </document>

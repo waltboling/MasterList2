@@ -8,6 +8,8 @@
 
 import UIKit
 import CloudKit
+import Flurry_iOS_SDK
+
 
 class CreateNoteViewController: UIViewController {
     
@@ -17,6 +19,14 @@ class CreateNoteViewController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView! {
         didSet {
             notesTextView.addDoneCancelToolbar()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let list = currentList {
+            self.navigationItem.title = list.recordID.recordName
         }
     }
     
@@ -39,6 +49,8 @@ class CreateNoteViewController: UIViewController {
             }
         }
         
+        Flurry.logEvent("Note Added")
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -60,16 +72,7 @@ class CreateNoteViewController: UIViewController {
                 })
             }
         }
-        dismiss(animated: true, completion: nil)
         
+        dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {
-        if let list = currentList {
-            self.navigationItem.title = list.recordID.recordName
-        }
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
 }

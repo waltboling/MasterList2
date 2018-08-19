@@ -9,34 +9,20 @@
 import UIKit
 import UserNotifications
 import CloudKit
+import Flurry_iOS_SDK
+
 
 class SetDeadlineViewController: UIViewController {
     
     let notificationCenter = UNUserNotificationCenter.current()
     var dateFormatter = DateFormatter()
     var currentList: CKRecord?
+    let privateDatabase = CKContainer.default().privateCloudDatabase
+    
+    //IB Outlets
     @IBOutlet weak var reminderOptions: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
-    
     @IBOutlet weak var deadlineLabel: UILabel!
-    
-    
-    
-    @IBAction func DeadlineWasSet(_ sender: UIDatePicker) {
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        deadlineLabel.text = dateFormatter.string(from: sender.date)
-    }
-    @IBAction func doneBtnWasTapped(_ sender: Any) {
-        configureNotification()
-        dismiss(animated: true, completion: nil)
-        //need to save date, alert
-    }
-    
-    @IBAction func cancelBtnWasTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +37,37 @@ class SetDeadlineViewController: UIViewController {
                 print("Did not accept permission.")
             }
         }
+    }
+    
+    //IB Actions
+    @IBAction func DeadlineWasSet(_ sender: UIDatePicker) {
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        deadlineLabel.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @IBAction func doneBtnWasTapped(_ sender: Any) {
+        configureNotification()
+        if let list = currentList {
+            list["deadline"] = deadlineLabel.text as CKRecordValue?
+            
+            privateDatabase.save(list, completionHandler: { (record: CKRecord?, error: Error?) in
+                if error == nil {
+                    print("deadline saved!")
+                } else {
+                    print("Error: \(error.debugDescription)")
+                }
+            })
+        }
+        
+        Flurry.logEvent("Deadline Added")
+        
+        dismiss(animated: true, completion: nil)
+        //need to save date, alert
+    }
+    
+    @IBAction func cancelBtnWasTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     func configureNotification() {
@@ -73,7 +90,4 @@ class SetDeadlineViewController: UIViewController {
             }
         })
     }
-    
-   
-
 }

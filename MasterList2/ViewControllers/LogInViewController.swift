@@ -16,14 +16,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         UIColor.flatTeal,
         UIColor.flatMintDark
     ]
+    
+    //IB Outlets
+    
     @IBOutlet weak var logInBtn: UIButton!
-    
-    @IBAction func logInWasTapped(_ sender: Any) {
-       userDidLogIn()
-    }
-    
     @IBOutlet weak var usernameTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
@@ -32,15 +29,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     configureVisuals()
     usernameTextField.delegate = self
     passwordTextField.delegate = self
+    }
     
     
-    
+    @IBAction func logInWasTapped(_ sender: Any) {
+        //userDidLogIn()
     }
 
     func configureVisuals() {
         view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
         logInBtn.tintColor = UIColor.flatOrange
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
@@ -64,14 +64,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 loginFailed()
             }
         }
-        
-        
-        
-        
-        
     }
     
-    /*func loginSucceeded(username: String, password: String) {
+   /* func loginSucceeded(username: String, password: String) {
         print ("Login Succeeded")
         OurDefaults.shared.saveUserDefaults(username: username, password: password, autoLogin: autoLoginSwitch.isOn, useiCloud: useiCloudSwitch.isOn)
         moveToHomeScreen()

@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
-                            <tableViewSection headerTitle="Select Photo" id="3Wx-be-QR1">
+                            <tableViewSection headerTitle="Photo" id="3Wx-be-QR1">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gtR-kj-wbD">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -31,7 +31,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p48-Tz-vrx">
-                                                    <rect key="frame" x="15" y="12" width="42" height="21"/>
+                                                    <rect key="frame" x="15" y="12" width="296" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -44,7 +44,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="bPT-Z8-X45"/>
                                                         <constraint firstAttribute="width" constant="40" id="mAb-j1-Hsh"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button">
+                                                    <state key="normal" title="photoButton">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
@@ -60,7 +60,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Set Location" id="PJ0-Ke-59p">
+                            <tableViewSection headerTitle="Location" id="PJ0-Ke-59p">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6Ot-bM-WLs">
                                         <rect key="frame" x="0.0" y="100" width="375" height="44"/>
@@ -70,7 +70,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdL-DV-7xa">
-                                                    <rect key="frame" x="15" y="12" width="42" height="21"/>
+                                                    <rect key="frame" x="15" y="12" width="296" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -99,7 +99,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Set Deadline" id="uyW-8l-4HF">
+                            <tableViewSection headerTitle="Deadline" id="uyW-8l-4HF">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="exF-Rj-pnX">
                                         <rect key="frame" x="0.0" y="172" width="375" height="44"/>
@@ -108,8 +108,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-pN-EZH" userLabel="Deadline Label">
-                                                    <rect key="frame" x="16" y="12" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-pN-EZH" userLabel="Deadline Label">
+                                                    <rect key="frame" x="16" y="12" width="317" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -168,12 +168,13 @@
                         <outlet property="deadlineLabel" destination="f9k-pN-EZH" id="QMe-HY-Zl9"/>
                         <outlet property="displayNotesTextView" destination="e9G-eM-Nke" id="LVy-Zl-Zxa"/>
                         <outlet property="locationLabel" destination="ZdL-DV-7xa" id="HEt-SM-rLF"/>
+                        <outlet property="photoButton" destination="j1n-Gb-nLm" id="iEs-Ah-FV7"/>
                         <outlet property="photoLabel" destination="p48-Tz-vrx" id="vLl-18-cR1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CnH-Lp-dkq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2677" y="-55"/>
+            <point key="canvasLocation" x="2676" y="-55.322338830584712"/>
         </scene>
         <!--SetDeadLineViewController-->
         <scene sceneID="w5o-WJ-9bz">

@@ -9,29 +9,28 @@
 import UIKit
 import CloudKit
 import ChameleonFramework
+import Flurry_iOS_SDK
 
-class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+
+class DetailItemsViewController: UIViewController, UITextFieldDelegate {
    
     var sublist: CKRecord?
     var detailItems = [CKRecord]()
+    var longPressGesture = UIGestureRecognizer()
     
+    //IB Outlets
     @IBOutlet weak var detailItemsTableView: UITableView!
-    
     @IBOutlet weak var addItemBtn: UIButton!
-    
-    @IBAction func addItemWasTapped(_ sender: Any) {
-        detailItemWasAdded()
-    }
-    
     @IBOutlet weak var inputDetailItems: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         inputDetailItems.delegate = self
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
         
         if let sublist = sublist {
-            self.navigationItem.title = sublist["sublistName"] as? String
+            self.navigationItem.title = sublist["listName"] as? String
             
             let privateDatabase = CKContainer.default().privateCloudDatabase
             let reference = CKReference(recordID: sublist.recordID, action: .deleteSelf)
@@ -48,7 +47,11 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         }
         
         addItemBtn.tintColor = UIColor.flatOrangeDark
-        
+        detailItemsTableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @IBAction func addItemWasTapped(_ sender: Any) {
+        detailItemWasAdded()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -56,23 +59,23 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         detailItemWasAdded()
         return true
     }
+    
     func detailItemWasAdded() {
         if inputDetailItems.text != "" {
-            let newDetailItem = CKRecord(recordType: "detailItems")
-            newDetailItem["itemName"] = inputDetailItems.text as CKRecordValue?
+            let newDetailList = CKRecord(recordType: "detailItems")
+            newDetailList["listName"] = inputDetailItems.text as CKRecordValue?
             
             if let list = self.sublist {
                 let reference = CKReference(recordID: list.recordID, action: .deleteSelf)
-                newDetailItem.setObject(reference, forKey: "sublist")
-                
+                newDetailList.setObject(reference, forKey: "sublist")
                 let privateDatabase = CKContainer.default().privateCloudDatabase
                 
-                privateDatabase.save(newDetailItem, completionHandler: { (record: CKRecord?, error: Error?) in
+                privateDatabase.save(newDetailList, completionHandler: { (record: CKRecord?, error: Error?) in
                     if error == nil {
                         print("list saved")
                         DispatchQueue.main.async(execute: {
                             self.detailItemsTableView.beginUpdates()
-                            self.detailItems.insert(newDetailItem, at: 0)
+                            self.detailItems.insert(newDetailList, at: 0)
                             let indexPath = IndexPath(row: 0, section: 0)
                             self.detailItemsTableView.insertRows(at: [indexPath], with: .top)
                             self.detailItemsTableView.endUpdates()
@@ -84,13 +87,33 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
             }
         }
         
-        
         inputDetailItems.text = ""
     }
+    
+    @objc func handleLongPress(recognizer: UILongPressGestureRecognizer) {
+        if longPressGesture.state == UIGestureRecognizerState.began {
+            performSegue(withIdentifier: DataStructs.toDetailMenu, sender: self)
+            Flurry.logEvent("Segued to Detail List Reminders")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == DataStructs.toDetailMenu {
+            let touchPoint = longPressGesture.location(in: self.detailItemsTableView)
+            if let indexPath = self.detailItemsTableView.indexPathForRow(at: touchPoint) {
+                let currentDetailItem = detailItems[indexPath.row]
+                let controller = (segue.destination as! PopoverMenuTableViewController)
+                controller.currentList = currentDetailItem
+            }
+        }
+    }
+}
 
-    //MARK: Table View Data Source / Delegate
-    
-    
+extension DetailItemsViewController: UITableViewDelegate {
+    //add gesture for popover menu
+}
+
+extension DetailItemsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -103,7 +126,7 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         let detailCell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
         let detailItem = detailItems[indexPath.row]
         
-        if let itemName = detailItem["itemName"] as? String {
+        if let itemName = detailItem["listName"] as? String {
             detailCell.textLabel?.text = itemName
             detailCell.backgroundColor = .clear
             detailCell.textLabel?.textColor = UIColor.flatTeal
@@ -113,6 +136,5 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, UITableV
         return detailCell
     }
     
-   
-    
+    //add delete func
 }
