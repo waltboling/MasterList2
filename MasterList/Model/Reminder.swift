@@ -1,6 +1,6 @@
 //
 //  Reminder.swift
-//  MasterList2
+//  MasterList
 //
 //  Created by Jon Boling on 8/13/18.
 //  Copyright © 2018 Walt Boling. All rights reserved.
