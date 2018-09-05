@@ -8,7 +8,6 @@
 
 import UIKit
 import Flurry_iOS_SDK
-//import MoPub
 import GoogleMobileAds
 
 @UIApplicationMain
@@ -19,24 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        /*Flurry.startSession("BM9T49RSM5CBMTGGPCHH", with: FlurrySessionBuilder
+        Flurry.startSession("BM9T49RSM5CBMTGGPCHH", with: FlurrySessionBuilder
             .init()
             .withCrashReporting(true)
-            .withLogLevel(FlurryLogLevelAll))*/
+            .withLogLevel(FlurryLogLevelCriticalOnly))
         
-        /* for MoPub
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "d57f63b561a64155adfd63ae3a7798af")
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3684839275222485~8639645147")
         
-        sdkConfig.globalMediationSettings = []
- 
-        /*var adMob = NSClassFromString("MPGoogleAdMobRewardedVideoCustomEvent")
-        if adMob != nil {
-            sdkConfig.mediatedNetworks = [adMob] as? [MPMediationSdkInitializable.Type]
-        }*/
-        
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig, completion: nil)*/
-
-        //GADMobileAds.configure(withApplicationID: "ca-app-pub-3684839275222485~8639645147")
         return true
     }
 
