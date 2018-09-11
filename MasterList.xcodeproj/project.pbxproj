@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		53E6279339D5BCE262C00732 /* Pods_MasterList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4087A2AED5617C0C5E3DE146 /* Pods_MasterList.framework */; };
-		E612677D213713C3001DF747 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612677C213713C3001DF747 /* AdManager.swift */; };
+		E61D921C2147409300B7809B /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61D921B2147409300B7809B /* LocationsTableViewController.swift */; };
 		E64A0CAA2116532A00870439 /* Quicksand-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA22116532900870439 /* Quicksand-Regular.otf */; };
 		E64A0CAB2116532A00870439 /* Quicksand-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA32116532A00870439 /* Quicksand-Bold.otf */; };
 		E64A0CAC2116532A00870439 /* Quicksand_Dash.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA42116532A00870439 /* Quicksand_Dash.otf */; };
@@ -45,7 +45,7 @@
 		C83D8F166FD62C2BBBA4259B /* Pods-MasterList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MasterList.release.xcconfig"; path = "Pods/Target Support Files/Pods-MasterList/Pods-MasterList.release.xcconfig"; sourceTree = "<group>"; };
 		DA915300F22860017AE217D3 /* Pods_MasterList2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MasterList2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E60369AC212F5B91004BFED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/jonboling/Documents/MasterList/MasterList/Info.plist; sourceTree = "<absolute>"; };
-		E612677C213713C3001DF747 /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
+		E61D921B2147409300B7809B /* LocationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationsTableViewController.swift; path = /Users/jonboling/Documents/MasterList/MasterList/ViewControllers/LocationsTableViewController.swift; sourceTree = "<absolute>"; };
 		E64A0CA22116532900870439 /* Quicksand-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.otf"; sourceTree = "<group>"; };
 		E64A0CA32116532A00870439 /* Quicksand-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.otf"; sourceTree = "<group>"; };
 		E64A0CA42116532A00870439 /* Quicksand_Dash.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Dash.otf; sourceTree = "<group>"; };
@@ -130,7 +130,6 @@
 			children = (
 				E6701B012114E3FF004E289B /* DataStructs.swift */,
 				E64A0CB32116A37900870439 /* ConnectionManager.swift */,
-				E612677C213713C3001DF747 /* AdManager.swift */,
 				E671E8EC21222242009DE2E0 /* RemindersManager.swift */,
 				E671E8EE2122228D009DE2E0 /* Reminder.swift */,
 				E6C341E821373034003E57E6 /* ViewExtensions.swift */,
@@ -147,6 +146,7 @@
 				E6701B032114E432004E289B /* SublistViewController.swift */,
 				E6924FA4211641BB00F99746 /* DetailItemsViewController.swift */,
 				E671E8E9212203AC009DE2E0 /* PopoverMenuViewController.swift */,
+				E61D921B2147409300B7809B /* LocationsTableViewController.swift */,
 				E671E8F921236260009DE2E0 /* Popovers */,
 			);
 			path = ViewControllers;
@@ -359,6 +359,9 @@
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/LocationPicker/LocationPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -366,6 +369,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LocationPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +389,7 @@
 				E6924FA5211641BB00F99746 /* DetailItemsViewController.swift in Sources */,
 				E6C341E921373034003E57E6 /* ViewExtensions.swift in Sources */,
 				E671E8F821226EF4009DE2E0 /* LocationReminderViewController.swift in Sources */,
+				E61D921C2147409300B7809B /* LocationsTableViewController.swift in Sources */,
 				E6C341ED21373A15003E57E6 /* DismissAnimator.swift in Sources */,
 				E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */,
 				E64A0CB42116A37900870439 /* ConnectionManager.swift in Sources */,
@@ -390,7 +397,6 @@
 				E6C341EB21373A03003E57E6 /* PresentAnimator.swift in Sources */,
 				E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */,
 				E671E8EA212203AC009DE2E0 /* PopoverMenuViewController.swift in Sources */,
-				E612677D213713C3001DF747 /* AdManager.swift in Sources */,
 				E671E8F621226D56009DE2E0 /* KeyboardExtensions.swift in Sources */,
 				E671E8ED21222242009DE2E0 /* RemindersManager.swift in Sources */,
 				E6701B042114E432004E289B /* SublistViewController.swift in Sources */,

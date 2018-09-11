@@ -9,6 +9,7 @@
 import UIKit
 import Flurry_iOS_SDK
 import GoogleMobileAds
+import Instabug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GADMobileAds.configure(withApplicationID: "ca-app-pub-3684839275222485~8639645147")
         
+        Instabug.start(withToken: "de7e62c28c040d9bcf8086441b29fca1", invocationEvents: [.shake, .screenshot])
         return true
     }
 
