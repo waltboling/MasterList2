@@ -10,7 +10,6 @@ import UIKit
 import CloudKit
 import Flurry_iOS_SDK
 import ChameleonFramework
-import LocationPicker
 
 class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate {
     

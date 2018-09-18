@@ -15,8 +15,7 @@ import Instabug
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Flurry.startSession("BM9T49RSM5CBMTGGPCHH", with: FlurrySessionBuilder
@@ -27,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.configure(withApplicationID: "ca-app-pub-3684839275222485~8639645147")
         
         Instabug.start(withToken: "de7e62c28c040d9bcf8086441b29fca1", invocationEvents: [.shake, .screenshot])
+
         return true
     }
 
@@ -51,7 +51,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-

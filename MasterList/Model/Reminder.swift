@@ -16,20 +16,24 @@ class Reminder: NSObject, NSCoding {
     let identifier: String
     let notifyOnEntry: Bool, notifyOnExit: Bool
     let selectedRadius: Int
+    var listTitle: String
+    var addressName: String
     
     convenience init(coordinate: CLLocationCoordinate2D,
-                     notifyOnEntry: Bool, notifyOnExit: Bool, selectedRadius: Int) {
-        self.init(coordinate: coordinate, identifier: NSUUID().uuidString, notifyOnEntry: notifyOnEntry, notifyOnExit: notifyOnExit, selectedRadius: selectedRadius)
+                     notifyOnEntry: Bool, notifyOnExit: Bool, selectedRadius: Int, listTitle: String, addressName: String) {
+        self.init(coordinate: coordinate, identifier: NSUUID().uuidString, notifyOnEntry: notifyOnEntry, notifyOnExit: notifyOnExit, selectedRadius: selectedRadius, listTitle: listTitle, addressName: addressName)
     }
     
     init(coordinate: CLLocationCoordinate2D, identifier: String,
-         notifyOnEntry: Bool, notifyOnExit: Bool, selectedRadius: Int) {
+         notifyOnEntry: Bool, notifyOnExit: Bool, selectedRadius: Int, listTitle: String, addressName: String) {
         //self.text = text
         self.coordinate = coordinate
         self.identifier = identifier
         self.notifyOnEntry = notifyOnEntry
         self.notifyOnExit = notifyOnExit
         self.selectedRadius = selectedRadius
+        self.listTitle = listTitle
+        self.addressName = addressName
     }
     
     required convenience init(coder aDecoder: NSCoder) {
@@ -41,9 +45,10 @@ class Reminder: NSObject, NSCoding {
         let notifyEntry = aDecoder.decodeBool(forKey: "notifyOnEntry")
         let notifyExit = aDecoder.decodeBool(forKey: "notifyOnExit")
         let selectedRadius = aDecoder.decodeInt64(forKey: "selectedRadius")
+        let listTitle = aDecoder.decodeObject(forKey: "listTitle") as! String
+        let addressName = aDecoder.decodeObject(forKey: "addressName") as! String
         
-        self.init(coordinate: coordinate, identifier: identifier, notifyOnEntry: notifyEntry, notifyOnExit: notifyExit, selectedRadius: Int(selectedRadius))
-        print("decoding: \(identifier) \(selectedRadius) \(notifyOnEntry)  \(notifyOnExit)" )
+        self.init(coordinate: coordinate, identifier: identifier, notifyOnEntry: notifyEntry, notifyOnExit: notifyExit, selectedRadius: Int(selectedRadius), listTitle: String(listTitle), addressName: String(addressName))
     }
     
     func encode(with aCoder: NSCoder) {
@@ -54,8 +59,8 @@ class Reminder: NSObject, NSCoding {
         aCoder.encode(notifyOnEntry, forKey: "notifyOnEntry")
         aCoder.encode(notifyOnExit, forKey: "notifyOnExit")
         aCoder.encode(selectedRadius, forKey: "selectedRadius")
-        
-        print("encoding: \(identifier) \(selectedRadius) \(notifyOnEntry)  \(notifyOnExit)" )
+        aCoder.encode(listTitle, forKey: "listTitle")
+        aCoder.encode(addressName, forKey: "addressName")
     }
     
 }

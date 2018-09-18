@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app would like to access your photos for use within the app</string>
+	<string>Enabling photo access allows you to use your photos for reminders</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -28,13 +28,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app would like to access your camera to use photos within the app</string>
+	<string>Enabling your camera lets you take photos for reminders</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app would like to access user location for location alerts</string>
+	<string>This app would like to access user location to provide location alerts</string>
 	<key>NSLocationUsageDescription</key>
 	<string>This app uses the user location to set location reminders</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app would like to access user location for location alerts</string>
+	<string>This app would like to access user location to provide location alerts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Quicksand-Light.otf</string>
