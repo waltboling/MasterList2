@@ -129,8 +129,10 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
                 privateDatabase.save(list, completionHandler: { (record: CKRecord?, error: Error?) in
                     if error == nil {
                         print("note saved!")
+                        
                         DispatchQueue.main.sync {
-                            self.savedAnimation()
+                            self.notesTextView.resignFirstResponder()
+                            self.savedAnimation(message: "Note Saved!")
                         }
                     } else {
                         print("Error: \(error.debugDescription)")
@@ -146,7 +148,8 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
     }
     
     //animation functions
-    func savedAnimation() {
+    
+    /*func savedAnimation() {
         notesTextView.resignFirstResponder()
         let window = UIApplication.shared.keyWindow
         let hud = MBProgressHUD.showAdded(to: window!, animated: true)
@@ -154,7 +157,7 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
         hud.customView = UIImageView(image: UIImage(named: "checkmarkIcon"))
         hud.label.text = "Note Saved!"
         hud.hide(animated: true, afterDelay: 1.0)
-    }
+    }*/
     
     func animateTable() {
         tableView.reloadData()

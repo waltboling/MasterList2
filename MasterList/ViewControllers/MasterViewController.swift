@@ -39,6 +39,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
         configureAds()
         //loadLists()
         
+        
         refresh = UIRefreshControl()
         refresh.attributedTitle = NSAttributedString(string: "Pull to load Lists")
         refresh.addTarget(self, action: #selector(MasterViewController.loadLists), for: .valueChanged)
@@ -162,6 +163,12 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
     }
 
     @objc func loadLists() {
+        /*let window = UIApplication.shared.keyWindow
+        let hud = MBProgressHUD.showAdded(to: window!, animated: true)
+        hud.mode = .indeterminate
+        hud.label.text = "Loading"
+         */
+        
         let privateDatabase = CKContainer.default().privateCloudDatabase
         let query = CKQuery(recordType: "MasterLists", predicate: NSPredicate(format: "TRUEPREDICATE", argumentArray: nil))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ChameleonFramework
+import MBProgressHUD
 
 extension UIView {
     func shake() {
@@ -51,4 +52,22 @@ extension UIViewController {
             })
         }
     }
+    
+    func savedAnimation(message: String) {
+        //notesTextView.resignFirstResponder()
+        let window = UIApplication.shared.keyWindow
+        let hud = MBProgressHUD.showAdded(to: window!, animated: true)
+        hud.mode = .customView
+        hud.customView = UIImageView(image: UIImage(named: "checkmarkIcon"))
+        hud.label.text = message
+        hud.animationType = .fade
+        hud.hide(animated: true, afterDelay: 1.2)
+    }
+    
+   /* func loadingAnimation() {
+        let window = UIApplication.shared.keyWindow
+        let hud = MBProgressHUD.showAdded(to: window!, animated: true)
+        hud.mode = .indeterminate
+        hud.label.text = "Loading"
+    }*/
 }
