@@ -11,7 +11,7 @@ import CloudKit
 import ChameleonFramework
 import Flurry_iOS_SDK
 import GoogleMobileAds
-
+import MBProgressHUD
 
 class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
    

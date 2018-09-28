@@ -10,10 +10,9 @@ import CloudKit
 import ChameleonFramework
 import Flurry_iOS_SDK
 import GoogleMobileAds
+import MBProgressHUD
 
 class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
-    
-    
     
     fileprivate var collapseDetailViewController = true
     var masterLists = [CKRecord]()

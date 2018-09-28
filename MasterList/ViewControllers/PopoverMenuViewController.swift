@@ -118,9 +118,6 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
         
     }
     
-
-    
-    
     @IBAction func saveNoteWasTapped(_ sender: Any) {
         saveNote()
     }
@@ -150,17 +147,6 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
     
     //animation functions
     func savedAnimation() {
-        /*UIView.animateKeyframes(withDuration: 2.0, delay: 0.0, options: .calculationModeCubic, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.1) {
-                self.noteSavedLabel.alpha = 1
-                self.saveNoteButton.alpha = 0
-            }
-            
-            UIView.addKeyframe(withRelativeStartTime: 1.0, relativeDuration: 1.0) {
-                self.noteSavedLabel.alpha = 0
-                self.saveNoteButton.alpha = 1
-            }
-        })*/
         notesTextView.resignFirstResponder()
         let window = UIApplication.shared.keyWindow
         let hud = MBProgressHUD.showAdded(to: window!, animated: true)
@@ -168,9 +154,6 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
         hud.customView = UIImageView(image: UIImage(named: "checkmarkIcon"))
         hud.label.text = "Note Saved!"
         hud.hide(animated: true, afterDelay: 1.0)
-        
-        
-        //tableView.setContentOffset(CGPoint(x: 0, y: -60), animated: true)
     }
     
     func animateTable() {
