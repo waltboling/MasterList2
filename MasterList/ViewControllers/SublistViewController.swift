@@ -30,6 +30,16 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
     override func viewWillAppear(_ animated: Bool) {
         configureVisual()
         configureAds()
+        loadLists()
+        
+        refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: "Pull to load Lists")
+        refresh.addTarget(self, action: #selector(self.loadLists), for: .valueChanged)
+        sublistTableView.addSubview(refresh)
+        
+        if let indexPath = sublistTableView.indexPathForSelectedRow {
+            sublistTableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     override func viewDidLoad() {
@@ -38,27 +48,39 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
         self.inputNewItem.delegate = self
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
         
+        //loadLists()
+       
+        sublistTableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func loadLists() {
         if let masterList = masterList {
             self.navigationItem.title = masterList["listName"] as? String
             let privateDatabase = CKContainer.default().privateCloudDatabase
             let reference = CKReference(recordID: masterList.recordID, action: .deleteSelf)
             let query = CKQuery(recordType: "sublists", predicate: NSPredicate(format:"masterList == %@", reference))
-            
-            privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
-                if let items = results {
-                    self.sublists = items
-                    DispatchQueue.main.async(execute: {
-                        self.sublistTableView.reloadData()
-                        self.refresh.endRefreshing()
-                    })
+            if ConnectionManager.shared.testConnection() {
+                if ConnectionManager.shared.testCloudKit() {
+                    privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+                        if let items = results {
+                            self.sublists = items
+                            DispatchQueue.main.async(execute: {
+                                self.sublistTableView.reloadData()
+                                self.refresh.endRefreshing()
+                            })
+                        }
+                    }
+                } else {
+                    showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
                 }
+            } else {
+                showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
             }
         }
-        
-        sublistTableView.addGestureRecognizer(longPressGesture)
     }
     
     @IBAction func addItemWasTapped(_ sender: Any) {
+        inputNewItem.resignFirstResponder()
         sublistWasAdded()
     }
     
@@ -84,6 +106,7 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
                         })
                     } else {
                         print("Error: \(error.debugDescription)")
+                        self.showAlert(title: "Unable to save list", message: "Check connection and try again")
                     }
                 })
             }
@@ -166,8 +189,17 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
     
     @objc func handleLongPress(recognizer: UILongPressGestureRecognizer) {
         if longPressGesture.state == UIGestureRecognizerState.began {
-            performSegue(withIdentifier: DataStructs.toSubMenu, sender: self)
-            Flurry.logEvent("Segued to Sublist Reminders")
+            let touchPoint = longPressGesture.location(in: self.sublistTableView)
+            if let indexPath = self.sublistTableView.indexPathForRow(at: touchPoint) {
+                if indexPath.row <= sublists.count {
+                    performSegue(withIdentifier: DataStructs.toSubMenu, sender: self)
+                    Flurry.logEvent("Segued to Sublist Reminders")
+                } else {
+                    print("there is no row here")
+                }
+            } else {
+                print("cannot find index path")
+            }
         }
     }
 }
@@ -194,10 +226,27 @@ extension SublistViewController: UITableViewDataSource {
         let sublist = sublists[indexPath.row]
         
         if let sublistName = sublist["listName"] as? String {
+            let chevronBlue = UIImage(named: "chevronIconColor")
             sublistCell.textLabel?.text = sublistName
             sublistCell.backgroundColor = .clear
             sublistCell.textLabel?.textColor = UIColor.flatTeal
-            sublistCell.textLabel?.font = UIFont(name: "Quicksand-Regular", size: 17)
+            sublistCell.textLabel?.font = UIFont(name: "Quicksand-Regular", size: 18)
+            
+            sublistCell.detailTextLabel?.text = ""
+            if sublist["photo"] != nil {
+                sublistCell.detailTextLabel?.text = "Image | "
+            }
+            if sublist["deadline"] != nil {
+                sublistCell.detailTextLabel?.text! += "Deadline | "
+            }
+            if sublist["location"] != nil {
+                sublistCell.detailTextLabel?.text! += "Location | "
+            }
+            if sublist["note"] != nil {
+                sublistCell.detailTextLabel?.text! += "Note"
+            }
+            sublistCell.accessoryView = UIImageView(image: chevronBlue)
+            sublistCell.accessoryView?.contentMode = .scaleAspectFit
         }
         
         return sublistCell

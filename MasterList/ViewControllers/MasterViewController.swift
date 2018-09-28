@@ -38,6 +38,17 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
         
         configureVisual()
         configureAds()
+        //loadLists()
+        
+        refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: "Pull to load Lists")
+        refresh.addTarget(self, action: #selector(MasterViewController.loadLists), for: .valueChanged)
+        
+        masterTableView.addSubview(refresh)
+        
+        if let indexPath = masterTableView.indexPathForSelectedRow {
+            masterTableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     override func viewDidLoad() {
@@ -46,49 +57,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
         splitViewController?.delegate = self
         self.inputNewList.delegate = self
         
-        //check for internet connection
-        if ConnectionManager.shared.testConnection() {
-            if ConnectionManager.shared.testCloudKit() {
-                refresh = UIRefreshControl()
-                refresh.attributedTitle = NSAttributedString(string: "Pull to load Lists")
-                refresh.addTarget(self, action: #selector(MasterViewController.loadLists), for: .valueChanged)
-                
-                masterTableView.addSubview(refresh)
-                
-                self.loadLists()
-                
-            } else {
-                showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
-            }
-            
-        } else {
-            showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
-        }
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        let settingsAction = UIAlertAction(title: "Settings", style: .default) {(action) in self.openSettings()}
-        
-        alertController.addAction(okAction)
-        alertController.addAction(settingsAction)
-        
-        DispatchQueue.main.async {
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    
-    @objc func openSettings() {
-        guard let settingsURL = URL(string: UIApplicationOpenSettingsURLString) else {
-            print("failed")
-            return
-        }
-        if UIApplication.shared.canOpenURL(settingsURL) {
-            UIApplication.shared.open(settingsURL, completionHandler:{(success) in
-                print ("SettingsOpened: \(success)")
-            })
-        }
+        loadLists()
     }
     
     //for AdMob banner
@@ -126,6 +95,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
     
     //IB funcs
     @IBAction func addListWasTapped(_ sender: Any) {
+        inputNewList.resignFirstResponder()
         masterListWasEntered()
     }
     
@@ -172,6 +142,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
                     })
                 } else {
                     print("Error: \(error.debugDescription)")
+                    self.showAlert(title: "Unable to save list", message: "Check connection and try again")
                 }
             })
         } else {
@@ -195,14 +166,24 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
         let privateDatabase = CKContainer.default().privateCloudDatabase
         let query = CKQuery(recordType: "MasterLists", predicate: NSPredicate(format: "TRUEPREDICATE", argumentArray: nil))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
-            if let lists = results {
-                self.masterLists = lists
-                DispatchQueue.main.async(execute: {
-                    self.masterTableView.reloadData()
-                    self.refresh.endRefreshing()
-                })
+        
+        //check for internet connection
+        if ConnectionManager.shared.testConnection() {
+            if ConnectionManager.shared.testCloudKit() {
+                privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+                    if let lists = results {
+                        self.masterLists = lists
+                        DispatchQueue.main.async(execute: {
+                            self.masterTableView.reloadData()
+                            self.refresh.endRefreshing()
+                        })
+                    }
+                }
+            } else {
+                showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
             }
+        } else {
+            showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
         }
     }
 }
@@ -233,6 +214,12 @@ extension MasterViewController: UITableViewDataSource {
         masterCell.backgroundColor = .clear
         masterCell.textLabel?.font = UIFont(name:"Quicksand-Regular", size: 20)
         masterCell.textLabel?.textColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
+        
+        //let chevronGray = UIImage(named: "chevronIconGray")
+            // gray would be for future versions in order to show if a list has a sublist or not
+        let chevronBlue = UIImage(named: "chevronIconColor")
+        masterCell.accessoryView = UIImageView(image: chevronBlue!)
+        masterCell.accessoryView?.contentMode = .scaleAspectFit
         
         return masterCell
     }

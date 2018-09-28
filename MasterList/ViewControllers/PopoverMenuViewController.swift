@@ -10,13 +10,14 @@ import UIKit
 import CloudKit
 import Flurry_iOS_SDK
 import ChameleonFramework
+import MBProgressHUD
 
 class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate {
     
     var currentList: CKRecord?
     let privateDatabase = CKContainer.default().privateCloudDatabase
     let notePlaceholderText = "Click to add note here..."
-    
+
     //IB Outlets
     @IBOutlet weak var photoLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -53,6 +54,8 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
             }
         }
         
+        notesTextView.addDoneCancelToolbar(onDone: (target: self, action: #selector(saveNote)), onCancel: (target: self, action: #selector(cancelNote)))
+        
         saveNoteButton.backgroundColor = .flatTeal
         noteSavedLabel.textColor = .flatTeal
     }
@@ -79,7 +82,7 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
                 self.locationDetailLabel.text = list["locationDetailLabel"] as? String
                 self.locationDetailLabel.textColor = .flatMintDark
             } else {
-                self.locationLabel.text = "Click pointer to add location"
+                self.locationLabel.text = "Click pin to add location"
                 self.locationLabel.textColor = .gray
                 self.locationDetailLabel.text = ""
             }
@@ -107,14 +110,22 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        tableView.setContentOffset(CGPoint(x: 0, y: -60), animated: true)
+        tableView.setContentOffset(CGPoint(x: 0, y: -80), animated: true)
         if notesTextView.text.isEmpty {
             notesTextView.text = notePlaceholderText
             notesTextView.textColor = UIColor.gray
         }
+        
     }
     
+
+    
+    
     @IBAction func saveNoteWasTapped(_ sender: Any) {
+        saveNote()
+    }
+    
+    @objc func saveNote() {
         if let list = currentList {
             if notesTextView.text != nil {
                 list["note"] = notesTextView.text as CKRecordValue?
@@ -126,15 +137,20 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
                         }
                     } else {
                         print("Error: \(error.debugDescription)")
+                        self.showAlert(title: "Unable to save note", message: "Check connection and try again")
                     }
                 })
             }
         }
     }
     
+    @objc func cancelNote() {
+        notesTextView.resignFirstResponder()
+    }
+    
     //animation functions
     func savedAnimation() {
-        UIView.animateKeyframes(withDuration: 2.0, delay: 0.0, options: .calculationModeCubic, animations: {
+        /*UIView.animateKeyframes(withDuration: 2.0, delay: 0.0, options: .calculationModeCubic, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.1) {
                 self.noteSavedLabel.alpha = 1
                 self.saveNoteButton.alpha = 0
@@ -144,7 +160,17 @@ class PopoverMenuTableViewController: UITableViewController, UITextViewDelegate 
                 self.noteSavedLabel.alpha = 0
                 self.saveNoteButton.alpha = 1
             }
-        })
+        })*/
+        notesTextView.resignFirstResponder()
+        let window = UIApplication.shared.keyWindow
+        let hud = MBProgressHUD.showAdded(to: window!, animated: true)
+        hud.mode = .customView
+        hud.customView = UIImageView(image: UIImage(named: "checkmarkIcon"))
+        hud.label.text = "Note Saved!"
+        hud.hide(animated: true, afterDelay: 1.0)
+        
+        
+        //tableView.setContentOffset(CGPoint(x: 0, y: -60), animated: true)
     }
     
     func animateTable() {

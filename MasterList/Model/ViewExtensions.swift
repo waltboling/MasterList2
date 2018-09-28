@@ -24,5 +24,31 @@ extension UIView {
             self.alpha = 1.0
         }
     }
+}
+
+extension UIViewController {
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) {(action) in self.openSettings()}
+        
+        alertController.addAction(okAction)
+        alertController.addAction(settingsAction)
+        
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
     
+    @objc func openSettings() {
+        guard let settingsURL = URL(string: UIApplicationOpenSettingsURLString) else {
+            print("failed")
+            return
+        }
+        if UIApplication.shared.canOpenURL(settingsURL) {
+            UIApplication.shared.open(settingsURL, completionHandler:{(success) in
+                print ("SettingsOpened: \(success)")
+            })
+        }
+    }
 }

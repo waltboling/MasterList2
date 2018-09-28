@@ -16,6 +16,7 @@
 		E64A0CAE2116532A00870439 /* Quicksand-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA62116532A00870439 /* Quicksand-Italic.otf */; };
 		E64A0CAF2116532A00870439 /* Quicksand-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E64A0CA72116532A00870439 /* Quicksand-BoldItalic.otf */; };
 		E64A0CB42116A37900870439 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64A0CB32116A37900870439 /* ConnectionManager.swift */; };
+		E64E906F215C03A3002D37B0 /* Quicksand-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E671E8F221226CED009DE2E0 /* Quicksand-Light.otf */; };
 		E6701AEC2114DCC6004E289B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AEB2114DCC6004E289B /* AppDelegate.swift */; };
 		E6701AEE2114DCC6004E289B /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6701AED2114DCC6004E289B /* MasterViewController.swift */; };
 		E6701AF12114DCC6004E289B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6701AEF2114DCC6004E289B /* Main.storyboard */; };
@@ -320,6 +321,7 @@
 				E64A0CAF2116532A00870439 /* Quicksand-BoldItalic.otf in Resources */,
 				E64A0CAB2116532A00870439 /* Quicksand-Bold.otf in Resources */,
 				E64A0CAE2116532A00870439 /* Quicksand-Italic.otf in Resources */,
+				E64E906F215C03A3002D37B0 /* Quicksand-Light.otf in Resources */,
 				E64A0CAC2116532A00870439 /* Quicksand_Dash.otf in Resources */,
 				E6701AF12114DCC6004E289B /* Main.storyboard in Resources */,
 				E671E8EB21220508009DE2E0 /* PopoverMenu.storyboard in Resources */,
@@ -361,6 +363,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/Instabug/Instabug.framework",
 				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -370,6 +373,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,8 +550,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MasterList/MasterList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Q24H7SU84Q;
 				INFOPLIST_FILE = "$(SRCROOT)/MasterList/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -556,8 +560,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = waltboling.MasterList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "41dde19d-68a0-4950-96d0-a277398eeff1";
+				PROVISIONING_PROFILE_SPECIFIER = "MasterLists - Distribution";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -569,8 +573,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MasterList/MasterList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Q24H7SU84Q;
 				INFOPLIST_FILE = "$(SRCROOT)/MasterList/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -579,8 +583,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = waltboling.MasterList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "41dde19d-68a0-4950-96d0-a277398eeff1";
+				PROVISIONING_PROFILE_SPECIFIER = "MasterLists - Distribution";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

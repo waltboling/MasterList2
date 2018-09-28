@@ -19,12 +19,24 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
     var detailItems = [CKRecord]()
     var longPressGesture = UIGestureRecognizer()
     var bannerView: GADBannerView!
+    var refresh = UIRefreshControl()
     
     //IB Outlets
     @IBOutlet weak var detailItemsTableView: UITableView!
     @IBOutlet weak var addItemBtn: UIButton!
     @IBOutlet weak var inputDetailItems: UITextField!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        loadLists()
+        
+        refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: "Pull to load Lists")
+        refresh.addTarget(self, action: #selector(self.loadLists), for: .valueChanged)
+        detailItemsTableView.addSubview(refresh)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,30 +44,41 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
         inputDetailItems.delegate = self
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
         
+        addItemBtn.tintColor = UIColor.flatOrangeDark
+        detailItemsTableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func loadLists() {
         if let sublist = sublist {
             self.navigationItem.title = sublist["listName"] as? String
             
             let privateDatabase = CKContainer.default().privateCloudDatabase
             let reference = CKReference(recordID: sublist.recordID, action: .deleteSelf)
             let query = CKQuery(recordType: "detailItems", predicate: NSPredicate(format:"sublist == %@", reference))
-            privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
-                if let items = results {
-                    self.detailItems = items
-                    DispatchQueue.main.async(execute: {
-                        self.detailItemsTableView.reloadData()
-                        //self.refresh.endRefreshing()
-                    })
+            
+            //test connection
+            if ConnectionManager.shared.testConnection() {
+                if ConnectionManager.shared.testCloudKit() {
+                    privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+                        if let items = results {
+                            self.detailItems = items
+                            DispatchQueue.main.async(execute: {
+                                self.detailItemsTableView.reloadData()
+                                self.refresh.endRefreshing()
+                            })
+                        }
+                    }
+                } else {
+                    showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
                 }
+            } else {
+                showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
             }
         }
-        
-        addItemBtn.tintColor = UIColor.flatOrangeDark
-        detailItemsTableView.addGestureRecognizer(longPressGesture)
     }
     
     func configureAds() {
-        //leah added testing
-        //GADMobileAds.configure(withApplicationID: "ca-app-pub-3684839275222485/8331042439")
+        
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
         //real ads
@@ -89,6 +112,7 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
     }
     
     @IBAction func addItemWasTapped(_ sender: Any) {
+        inputDetailItems.resignFirstResponder()
         detailItemWasAdded()
     }
     
@@ -120,6 +144,7 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
                         })
                     } else {
                         print("Error: \(error.debugDescription)")
+                        self.showAlert(title: "Unable to save list", message: "Check connection and try again")
                     }
                 })
             }
@@ -144,12 +169,19 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
                 let currentDetailItem = detailItems[indexPath.row]
                 let controller = (segue.destination as! PopoverMenuTableViewController)
                 controller.currentList = currentDetailItem
-            }
+            } else if let indexPath = self.detailItemsTableView.indexPathForSelectedRow {
+                let currentDetailItem = detailItems[indexPath.row]
+                let controller = (segue.destination as! PopoverMenuTableViewController)
+                controller.currentList = currentDetailItem
+            } //for now longpress and select perform same function
         }
     }
 }
 
 extension DetailItemsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: DataStructs.toDetailMenu, sender: self)
+    }
     
 }
 
@@ -170,7 +202,21 @@ extension DetailItemsViewController: UITableViewDataSource {
             detailCell.textLabel?.text = itemName
             detailCell.backgroundColor = .clear
             detailCell.textLabel?.textColor = UIColor.flatTeal
-            detailCell.textLabel?.font = UIFont(name: "Quicksand-Regular", size: 17)
+            detailCell.textLabel?.font = UIFont(name: "Quicksand-Regular", size: 16)
+        }
+        
+        detailCell.detailTextLabel?.text = ""
+        if detailItem["photo"] != nil {
+            detailCell.detailTextLabel?.text = "Image | "
+        }
+        if detailItem["deadline"] != nil {
+            detailCell.detailTextLabel?.text! += "Deadline | "
+        }
+        if detailItem["location"] != nil {
+            detailCell.detailTextLabel?.text! += "Location | "
+        }
+        if detailItem["note"] != nil {
+            detailCell.detailTextLabel?.text! += "Note"
         }
         
         return detailCell
@@ -196,7 +242,6 @@ extension DetailItemsViewController: UITableViewDataSource {
         }
     }
     
-    //delete methods
     /// Tells the delegate an ad request loaded an ad.
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
