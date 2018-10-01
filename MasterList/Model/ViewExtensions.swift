@@ -64,10 +64,17 @@ extension UIViewController {
         hud.hide(animated: true, afterDelay: 1.2)
     }
     
-   /* func loadingAnimation() {
-        let window = UIApplication.shared.keyWindow
-        let hud = MBProgressHUD.showAdded(to: window!, animated: true)
+    func loadingAnimation() -> MBProgressHUD {
+        var hud = MBProgressHUD()
+        hud = MBProgressHUD.init(view: self.view)
+        hud.delegate = self as? MBProgressHUDDelegate
+        hud.removeFromSuperViewOnHide = true
+        hud.graceTime = 1.5
         hud.mode = .indeterminate
         hud.label.text = "Loading"
-    }*/
+        self.view.addSubview(hud)
+        hud.show(animated: true)
+        
+        return hud
+    }
 }

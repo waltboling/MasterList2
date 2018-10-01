@@ -6,7 +6,6 @@ target 'MasterList' do
   use_frameworks!
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
 pod 'Flurry-iOS-SDK/FlurrySDK'
-pod 'Flurry-iOS-SDK/FlurryAds'
 pod 'Firebase/Core'
 pod 'Firebase/AdMob'
 pod 'Instabug'

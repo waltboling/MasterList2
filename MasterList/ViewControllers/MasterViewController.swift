@@ -11,6 +11,7 @@ import ChameleonFramework
 import Flurry_iOS_SDK
 import GoogleMobileAds
 import MBProgressHUD
+import UserNotifications
 
 class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
     
@@ -18,27 +19,26 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
     var masterLists = [CKRecord]()
     var refresh = UIRefreshControl()
     var detailController: SublistViewController?
-   
+    var hud = MBProgressHUD()
+    var bannerView: GADBannerView!
     let colors: [UIColor] = [
         UIColor.flatTeal,
         UIColor.flatTeal,
         UIColor.flatMintDark
     ]
+    let notificationCenter = UNUserNotificationCenter.current()
     
     //IB Outlets
     @IBOutlet weak var masterTableView: UITableView!
     @IBOutlet weak var logOutBtn: UIBarButtonItem!
     @IBOutlet weak var inputNewList: UITextField!
     @IBOutlet weak var addListBtn: UIButton!
-    var bannerView: GADBannerView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         configureVisual()
         configureAds()
-        //loadLists()
-        
         
         refresh = UIRefreshControl()
         refresh.attributedTitle = NSAttributedString(string: "Pull to load Lists")
@@ -53,6 +53,8 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hud = loadingAnimation()
         
         splitViewController?.delegate = self
         self.inputNewList.delegate = self
@@ -163,12 +165,6 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
     }
 
     @objc func loadLists() {
-        /*let window = UIApplication.shared.keyWindow
-        let hud = MBProgressHUD.showAdded(to: window!, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading"
-         */
-        
         let privateDatabase = CKContainer.default().privateCloudDatabase
         let query = CKQuery(recordType: "MasterLists", predicate: NSPredicate(format: "TRUEPREDICATE", argumentArray: nil))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -182,13 +178,16 @@ class MasterViewController: UIViewController, UITextFieldDelegate, GADBannerView
                         DispatchQueue.main.async(execute: {
                             self.masterTableView.reloadData()
                             self.refresh.endRefreshing()
+                            self.hud.hide(animated: true)
                         })
                     }
                 }
             } else {
+                hud.hide(animated: true)
                 showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
             }
         } else {
+            hud.hide(animated: true)
             showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
         }
     }
@@ -232,8 +231,17 @@ extension MasterViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let selectedRecordID = masterLists[indexPath.row].recordID
+            let list = masterLists[indexPath.row]
+            let selectedRecordID = list.recordID
             let privateDatabase = CKContainer.default().privateCloudDatabase
+            
+            //deleting location notification when list is deleted
+            deleteLocReminder(list: list)
+            
+            //delete deadline when list is deleted
+            deleteDeadline(list: list) //not working
+            
+            deleteChildAlerts(list: list, listType: "sublists")
             
             privateDatabase.delete(withRecordID: selectedRecordID) { (recordID, error) -> Void in
                 if error != nil {
@@ -244,6 +252,76 @@ extension MasterViewController: UITableViewDataSource {
                         self.masterTableView.reloadData()
                     })
                 }
+            }
+        }
+    }
+    
+    func deleteChildAlerts(list: CKRecord, listType: String){
+        let query: CKQuery!
+        //test connection
+        if ConnectionManager.shared.testConnection() {
+            if ConnectionManager.shared.testCloudKit() {
+                let privateDatabase = CKContainer.default().privateCloudDatabase
+                let reference = CKReference(recordID: list.recordID, action: .deleteSelf)
+                if (listType == "sublists"){
+                    query = CKQuery(recordType: "sublists", predicate: NSPredicate(format: "masterList == %@", reference))
+                }
+                else{
+                    query = CKQuery(recordType: "detailItems", predicate: NSPredicate(format: "sublist == %@", reference))
+                }
+                
+                privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+                    if let items = results {
+                        for childList in items {
+                            self.deleteDeadline(list: childList)
+                            self.deleteLocReminder(list: childList)
+                            
+                            //call it again for the items below this as there are three levels of lists
+                            self.deleteChildAlerts(list: childList, listType: "detailItems")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func deleteLocReminder(list: CKRecord) {
+        if let existingListName = list["listName"] as? String {
+            if let existingLocation = list["location"] as? String {
+                
+                print("Checking if notification exists for \(existingLocation)")
+                
+                let identifier = "\(existingListName)_\(existingLocation)"
+                print("DELETING REMINDER: \(identifier)")
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+        }
+    }
+    
+    func deleteDeadline(list: CKRecord) {
+        if let existingDeadline = list["deadline"] as? String,
+            let currentListValue = list["listName"] as? String {
+            print("Checking if notification exists for \(existingDeadline)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yy, hh:mm a"
+            var deadlineDate : Date!
+            
+            if let dataDate = dateFormatter.date(from: existingDeadline),
+                let existingIndex = list["deadlineIndex"] as? Int {
+                switch existingIndex{
+                case 1:
+                    deadlineDate = Calendar.current.date(byAdding: .hour, value: -1, to: dataDate)!
+                case 2:
+                    deadlineDate = Calendar.current.date(byAdding: .hour, value: -2, to: dataDate)!
+                case 3:
+                    deadlineDate = Calendar.current.date(byAdding: .day, value: -1, to: dataDate)!
+                default:
+                    deadlineDate = dataDate
+                }
+                
+                let identifier = "\(currentListValue)_\(dateFormatter.string(from: deadlineDate))"
+                print("DELETING REMINDER: \(identifier)")
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
             }
         }
     }

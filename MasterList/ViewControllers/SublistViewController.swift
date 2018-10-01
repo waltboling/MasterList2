@@ -12,6 +12,7 @@ import ChameleonFramework
 import Flurry_iOS_SDK
 import GoogleMobileAds
 import MBProgressHUD
+import UserNotifications
 
 class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
     
@@ -21,6 +22,8 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
     let backgroundColor = UIColor.flatTeal
     var longPressGesture = UIGestureRecognizer()
     var bannerView: GADBannerView!
+    let notificationCenter = UNUserNotificationCenter.current()
+    var hud = MBProgressHUD()
     
     //IB Outlets
     @IBOutlet weak var inputNewItem: UITextField!
@@ -31,6 +34,7 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
     override func viewWillAppear(_ animated: Bool) {
         configureVisual()
         configureAds()
+        hud = loadingAnimation()
         loadLists()
         
         refresh = UIRefreshControl()
@@ -49,8 +53,6 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
         self.inputNewItem.delegate = self
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
         
-        //loadLists()
-       
         sublistTableView.addGestureRecognizer(longPressGesture)
     }
     
@@ -68,13 +70,16 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
                             DispatchQueue.main.async(execute: {
                                 self.sublistTableView.reloadData()
                                 self.refresh.endRefreshing()
+                                self.hud.hide(animated: true)
                             })
                         }
                     }
                 } else {
+                   hud.hide(animated: true)
                     showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
                 }
             } else {
+                hud.hide(animated: true)
                 showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
             }
         }
@@ -135,7 +140,7 @@ class SublistViewController: UIViewController, UITextFieldDelegate, GADBannerVie
         navBar?.barTintColor = .white
         navBar?.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name:"Quicksand-Bold", size: 18)!, .foregroundColor: backgroundColor]
         
-         addItemBtn.tintColor = UIColor.flatOrangeDark
+        addItemBtn.tintColor = UIColor.flatOrangeDark
     }
     
     func configureAds() {
@@ -235,15 +240,30 @@ extension SublistViewController: UITableViewDataSource {
             
             sublistCell.detailTextLabel?.text = ""
             if sublist["photo"] != nil {
-                sublistCell.detailTextLabel?.text = "Image | "
+                sublistCell.detailTextLabel?.text = "Image"
             }
             if sublist["deadline"] != nil {
-                sublistCell.detailTextLabel?.text! += "Deadline | "
+                if let strText = sublistCell.detailTextLabel?.text {
+                    if (strText != "") {
+                        sublistCell.detailTextLabel?.text = strText + " | "
+                    }
+                }
+                sublistCell.detailTextLabel?.text! += "Deadline"
             }
             if sublist["location"] != nil {
-                sublistCell.detailTextLabel?.text! += "Location | "
+                if let strText = sublistCell.detailTextLabel?.text {
+                    if (strText != "") {
+                        sublistCell.detailTextLabel?.text = strText + " | "
+                    }
+                }
+                sublistCell.detailTextLabel?.text! += "Location"
             }
             if sublist["note"] != nil {
+                if let strText = sublistCell.detailTextLabel?.text {
+                    if (strText != "") {
+                        sublistCell.detailTextLabel?.text = strText + " | "
+                    }
+                }
                 sublistCell.detailTextLabel?.text! += "Note"
             }
             sublistCell.accessoryView = UIImageView(image: chevronBlue)
@@ -256,11 +276,81 @@ extension SublistViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool{
         return true
     }
-
+    
+    func deleteLocReminder(list: CKRecord) {
+        if let existingListName = list["listName"] as? String {
+            if let existingLocation = list["location"] as? String {
+                
+                print("Checking if notification exists for \(existingLocation)")
+                
+                let identifier = "\(existingListName)_\(existingLocation)"
+                print("DELETING REMINDER: \(identifier)")
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+        }
+    }
+    
+    func deleteDeadline(list: CKRecord) {
+        if let existingDeadline = list["deadline"] as? String,
+            let currentListValue = list["listName"] as? String {
+            print("Checking if notification exists for \(existingDeadline)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yy, hh:mm a"
+            var deadlineDate : Date!
+            
+            if let dataDate = dateFormatter.date(from: existingDeadline),
+                let existingIndex = list["deadlineIndex"] as? Int {
+                switch existingIndex{
+                case 1:
+                    deadlineDate = Calendar.current.date(byAdding: .hour, value: -1, to: dataDate)!
+                case 2:
+                    deadlineDate = Calendar.current.date(byAdding: .hour, value: -2, to: dataDate)!
+                case 3:
+                    deadlineDate = Calendar.current.date(byAdding: .day, value: -1, to: dataDate)!
+                default:
+                    deadlineDate = dataDate
+                }
+                
+                let identifier = "\(currentListValue)_\(dateFormatter.string(from: deadlineDate))"
+                print("DELETING REMINDER: \(identifier)")
+            notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+        }
+    }
+    
+    func deleteChildAlerts(list: CKRecord){
+        //test connection
+        if ConnectionManager.shared.testConnection() {
+            if ConnectionManager.shared.testCloudKit() {
+                let privateDatabase = CKContainer.default().privateCloudDatabase
+                let reference = CKReference(recordID: list.recordID, action: .deleteSelf)
+                let query = CKQuery(recordType: "detailItems", predicate: NSPredicate(format:"sublist == %@", reference))
+                
+                privateDatabase.perform(query, inZoneWith: nil) { (results: [CKRecord]?, error: Error?) in
+                    if let items = results {
+                        for childList in items {
+                            self.deleteDeadline(list: childList)
+                            self.deleteLocReminder(list: childList)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     //deleting a cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let selectedRecordID = sublists[indexPath.row].recordID
+            let list = sublists[indexPath.row]
+            
+            //deleting location notification when list is deleted
+            deleteLocReminder(list: list)
+            
+            //delete deadline when list is deleted
+            deleteDeadline(list: list) //not working
+            
+            deleteChildAlerts(list: list)
             
             let privateDatabase = CKContainer.default().privateCloudDatabase
             

@@ -12,14 +12,17 @@ import ChameleonFramework
 import Flurry_iOS_SDK
 import GoogleMobileAds
 import MBProgressHUD
+import UserNotifications
 
 class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBannerViewDelegate {
-   
+    
     var sublist: CKRecord?
     var detailItems = [CKRecord]()
     var longPressGesture = UIGestureRecognizer()
     var bannerView: GADBannerView!
     var refresh = UIRefreshControl()
+    let notificationCenter = UNUserNotificationCenter.current()
+    var hud = MBProgressHUD()
     
     //IB Outlets
     @IBOutlet weak var detailItemsTableView: UITableView!
@@ -28,6 +31,8 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        hud = loadingAnimation()
         
         loadLists()
         
@@ -65,13 +70,16 @@ class DetailItemsViewController: UIViewController, UITextFieldDelegate, GADBanne
                             DispatchQueue.main.async(execute: {
                                 self.detailItemsTableView.reloadData()
                                 self.refresh.endRefreshing()
+                                self.hud.hide(animated: true)
                             })
                         }
                     }
                 } else {
+                    hud.hide(animated: true)
                     showAlert(title: "iCloud Not Working", message: "Enable iCloud to Continue")
                 }
             } else {
+               hud.hide(animated: true)
                 showAlert(title: "No Internet Connection Detected", message: "Connect to Internet or try again later")
             }
         }
@@ -207,25 +215,88 @@ extension DetailItemsViewController: UITableViewDataSource {
         
         detailCell.detailTextLabel?.text = ""
         if detailItem["photo"] != nil {
-            detailCell.detailTextLabel?.text = "Image | "
+            detailCell.detailTextLabel?.text = "Image"
         }
         if detailItem["deadline"] != nil {
-            detailCell.detailTextLabel?.text! += "Deadline | "
+            if let strText = detailCell.detailTextLabel?.text {
+                if (strText != "") {
+                    detailCell.detailTextLabel?.text = strText + " | "
+                }
+            }
+            detailCell.detailTextLabel?.text! += "Deadline"
         }
         if detailItem["location"] != nil {
-            detailCell.detailTextLabel?.text! += "Location | "
+            if let strText = detailCell.detailTextLabel?.text {
+                if (strText != "") {
+                    detailCell.detailTextLabel?.text = strText + " | "
+                }
+            }
+            detailCell.detailTextLabel?.text! += "Location"
         }
         if detailItem["note"] != nil {
+            if let strText = detailCell.detailTextLabel?.text {
+                if (strText != "") {
+                    detailCell.detailTextLabel?.text = strText + " | "
+                }
+            }
             detailCell.detailTextLabel?.text! += "Note"
         }
         
         return detailCell
     }
     
+    func deleteLocReminder(list: CKRecord) {
+        if let existingListName = list["listName"] as? String {
+            if let existingLocation = list["location"] as? String {
+                
+                print("Checking if notification exists for \(existingLocation)")
+                
+                let identifier = "\(existingListName)_\(existingLocation)"
+                print("DELETING REMINDER: \(identifier)")
+                notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+        }
+    }
+    
+    func deleteDeadline(list: CKRecord) {
+        if let existingDeadline = list["deadline"] as? String,
+            let currentListValue = list["listName"] as? String {
+            print("Checking if notification exists for \(existingDeadline)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yy, hh:mm a"
+            var deadlineDate : Date!
+            
+            if let dataDate = dateFormatter.date(from: existingDeadline),
+                let existingIndex = list["deadlineIndex"] as? Int {
+                switch existingIndex{
+                case 1:
+                    deadlineDate = Calendar.current.date(byAdding: .hour, value: -1, to: dataDate)!
+                case 2:
+                    deadlineDate = Calendar.current.date(byAdding: .hour, value: -2, to: dataDate)!
+                case 3:
+                    deadlineDate = Calendar.current.date(byAdding: .day, value: -1, to: dataDate)!
+                default:
+                    deadlineDate = dataDate
+                }
+                
+                let identifier = "\(currentListValue)_\(dateFormatter.string(from: deadlineDate))"
+                print("DELETING REMINDER: \(identifier)")
+            notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+        }
+    }
+    
     //deleting a cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let selectedRecordID = detailItems[indexPath.row].recordID
+            let list = detailItems[indexPath.row]
+            let selectedRecordID = list.recordID
+            
+            //deleting location notification when list is deleted
+            deleteLocReminder(list: list)
+            
+            //delete deadline when list is deleted
+            deleteDeadline(list: list) //not working
             
             let privateDatabase = CKContainer.default().privateCloudDatabase
             
